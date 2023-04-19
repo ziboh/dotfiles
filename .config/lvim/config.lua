@@ -1,0 +1,5 @@
+reload "user.options"
+reload "user.whichkey"
+reload "user.lsp"
+reload "user.plugins_load"
+reload "user.autocmd"
