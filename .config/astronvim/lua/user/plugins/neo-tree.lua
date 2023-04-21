@@ -9,6 +9,8 @@ return {
         event = "neo_tree_window_before_open",
         handler = function(_)
           require("overseer").close()
+          require("dapui").close()
+          vim.cmd.UndotreeHide()
         end,
       },
     }

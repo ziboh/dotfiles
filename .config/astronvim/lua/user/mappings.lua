@@ -1,4 +1,5 @@
 return function(maps)
+	local ui = require("astronvim.utils.ui")
 	local utils = require("astronvim.utils")
 	local is_available = utils.is_available
 	local sections = {
@@ -109,13 +110,38 @@ return function(maps)
 			maps.n["<leader>t"] = false
 		end
 		if vim.fn.executable("lazygit") == 1 then
-			maps.n["<leader>g"] = sections.g
 			maps.n["<leader>gg"] = {
 				function()
-					utils.toggle_term_cmd("lazygit")
+					utils.toggle_term_cmd({
+						cmd = "lazygit",
+						dir = "git_dir",
+						direction = "float",
+						size = 1,
+						float_opts = {
+							border = "none",
+							width = 100000,
+							height = 100000,
+						},
+						-- function to run on opening the terminal
+						on_open = function(term)
+							vim.cmd("startinsert!")
+							vim.api.nvim_buf_set_keymap(
+								term.bufnr,
+								"n",
+								"q",
+								"<cmd>close<CR>",
+								{ noremap = true, silent = true }
+							)
+						end,
+						-- function to run on closing the terminal
+						on_close = function(term)
+							vim.cmd("startinsert!")
+						end,
+					})
 				end,
 				desc = "ToggleTerm lazygit",
 			}
+			maps.n["<leader>g"] = sections.g
 			maps.n["<leader>tl"] = false
 		end
 		maps.n["<leader>tn"] = false
@@ -125,16 +151,31 @@ return function(maps)
 		maps.n["<leader>th"] = false
 		maps.n["<leader>tv"] = false
 		maps.n["<leader>tf"] = false
-		maps.n["<A-3>"] = { "<cmd>ToggleTerm direction=float<cr>", desc = "ToggleTerm float" }
-		maps.n["<A-1>"] =
-		{ "<cmd>ToggleTerm size=10 direction=horizontal count=1<cr>", desc = "ToggleTerm horizontal split" }
-		maps.n["<A-2>"] =
-		{ "<cmd>ToggleTerm size=40 direction=vertical count=2<cr>", desc = "ToggleTerm vertical split" }
+		maps.n["<F7>"] = false
+		maps.t["<F7>"] = false
+		maps.n["<C-'>"] = false
+		maps.t["<C-'>"] = false
+		maps.n["<A-1>"] = {
+			function()
+				require("user.utils").term_toggle("zsh", "horizontal", 100)
+			end,
+			desc = "ToggleTerm horizontal split",
+		}
+		maps.n["<A-2>"] = {
+			function()
+				require("user.utils").term_toggle("zsh", "vertical", 101)
+			end,
+			desc = "ToggleTerm vertical split",
+		}
+		maps.n["<A-3>"] = {
+			function()
+				require("user.utils").term_toggle("zsh", "float", 102)
+			end,
+			desc = "ToggleTerm float",
+		}
 		maps.t["<A-1>"] = maps.n["<A-1>"]
 		maps.t["<A-2>"] = maps.n["<A-2>"]
 		maps.t["<A-3>"] = maps.n["<A-3>"]
-		maps.n["<C-t>"] = maps.n["<F7>"]
-		maps.t["<C-t>"] = maps.n["<F7>"]
 	end
 
 	if is_available("telescope.nvim") then
@@ -261,7 +302,7 @@ return function(maps)
 	maps.i["<A-k>"] = { "<Esc>:m .-2<CR>==gi", desc = "Move line up" }
 	maps.v["<A-j>"] = { ":m '>+1<CR>gv-gv", desc = "Move line down" }
 	maps.v["<A-k>"] = { ":m '<-2<CR>gv-gv", desc = "Move line up" }
-	maps.n["<leader>go"] = { require('user.utils').open_github, desc = "Open github" }
+	maps.n["<leader>go"] = { require("user.utils").open_github, desc = "Open github" }
 	maps.n["<leader><tab>"] = sections["<tab>"]
 	maps.n["<leader><tab>f"] = { "<cmd>tabfirst<cr>", desc = "First Tab" }
 	maps.n["<leader><tab>l"] = { "<cmd>tablast<cr>", desc = "Last Tab" }
@@ -269,5 +310,13 @@ return function(maps)
 	maps.n["<leader><tab>n"] = { "<cmd>tabnext<cr>", desc = "Next Tab" }
 	maps.n["<leader><tab>d"] = { "<cmd>tabclose<cr>", desc = "Close Tab" }
 	maps.n["<leader><tab>p"] = { "<cmd>tabprevious<cr>", desc = "Previous Tab" }
+
+	maps.n["<leader>un"] = {
+		function()
+			require("notify").dismiss({ silent = true, pending = true })
+		end,
+		desc = "Delete all Notifications",
+	}
+	maps.n["<leader>uN"] = { ui.change_number, desc = "Change line numbering" }
 	return maps
 end

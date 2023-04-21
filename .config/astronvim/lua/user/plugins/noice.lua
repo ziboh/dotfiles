@@ -17,6 +17,15 @@ return {
 	},
 	{
 		"rcarriga/nvim-notify",
+		keys = {
+			{
+				"<leader>un",
+				function()
+					require("notify").dismiss({ silent = true, pending = true })
+				end,
+				desc = "Delete all Notifications",
+			},
+		},
 		opts = function(_, opts)
 			opts.background_colour = "#000000"
 			return opts
@@ -147,8 +156,8 @@ return {
 		dependencies = "nvim-treesitter/nvim-treesitter",
 		config = true,
 		keys = {
-			{"<Leader>nc", ":lua require('neogen').generate({ type = 'class' })<CR>",desc = "Generate Class"},
-			{"<Leader>nf", ":lua require('neogen').generate({ type = 'function' })<CR>",desc = "Generate Function"},
-		}
+			{ "<Leader>nc", ":lua require('neogen').generate({ type = 'class' })<CR>",    desc = "Generate Class" },
+			{ "<Leader>nf", ":lua require('neogen').generate({ type = 'function' })<CR>", desc = "Generate Function" },
+		},
 	},
 }

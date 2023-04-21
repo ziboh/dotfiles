@@ -190,7 +190,7 @@ M.clear_winblend = function()
 	end
 end
 
-
+-- 获取当前光标所在的引号字符串
 function M.get_quoted_string()
 	local _, col = unpack(vim.api.nvim_win_get_cursor(0))
 
@@ -262,7 +262,18 @@ end
 
 function M.open_github()
 	local github_url = M.get_quoted_string()
-	vim.cmd("TermExec cmd=" .. [['gh ]] .. github_url .. [[' open=0]])
+	vim.cmd("TermExec cmd=" .. [['gith ]] .. github_url .. [[' open=0]])
+end
+
+M.term_toggle = function(cmd, direction, count)
+	local Terminal = require("toggleterm.terminal").Terminal
+	local custom_toggle = Terminal:new({
+		cmd = cmd,
+		hidden = true,
+		direction = direction,
+		count = count,
+	})
+	custom_toggle:toggle()
 end
 
 return M

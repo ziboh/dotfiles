@@ -48,4 +48,42 @@ return {
       end,
     },
   },
+  {
+    "akinsho/toggleterm.nvim",
+    opts = function(_, opts)
+      opts.direction = "horizontal"
+      opts.open_mapping = [[<c-t>]]
+      opts.size = function(term)
+        if term.direction == "horizontal" then
+          return vim.o.lines * 0.3
+        elseif term.direction == "vertical" then
+          return vim.o.columns * 0.3
+        end
+      end
+      opts.on_exit = function(term)
+        if term.direction == "horizontal" then
+          term.size = vim.o.lines * 0.3
+        elseif term.direction == "vertical" then
+          term.size = vim.o.columns * 0.3
+        end
+      end
+      return opts
+    end,
+    keys = {
+      { "<c-t>", "<cmd>ToggleTerm<cr>", desc = "Toggle Terminal" },
+    },
+  },
+  {
+    "AckslD/nvim-neoclip.lua",
+    dependencies = {
+      "tami5/sqlite.lua",
+      name = "sqlite",
+    },
+    opts = {
+      enable_persistant_history = true,
+    },
+    keys = {
+      {'<leader>fy', '<cmd>Telescope neoclip<cr>', desc = 'neoclip'},
+    }
+  },
 }
