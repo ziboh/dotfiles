@@ -1,0 +1,9 @@
+[submodule ".config/LazyVim"]
+	path = .config/LazyVim
+	url = https://github.com/LazyVim/LazyVim
+[submodule ".config/.config/astronvim"]
+	path = .config/.config/astronvim
+	url = https://github.com/ziboh/astronvim
+[submodule "/home/zibo/.config/astronvim"]
+	path = /home/zibo/.config/astronvim
+	url = https://github.com/ziboh/astronvim.git
