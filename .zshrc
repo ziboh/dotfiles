@@ -1,9 +1,13 @@
+# web search
 export ZSH_WEB_SEARCH_ENGINES=(gith "https://github.com/")
+# pyenv
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
+# zsh cache
 export ZSH_CACHE_DIR="$HOME/.cache/zsh"
+# encrypt zsh
 source "$HOME/.encrypt.zsh"
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
@@ -145,14 +149,9 @@ zstyle ':zim:zmodule' use 'degit'
 
 # Set editor default keymap to emacs (`-e`) or vi (`-v`)
 
-export PATH="$PATH:$HOME/rclone"
-export Soft="/mnt/c/Portable Software"
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-alias code="/mnt/c/Portable\ Software/VSCode/bin/code"
-export Downloads="/mnt/d/zibo/Downloads"
-export Onedrive="/mnt/d/onedrive"
-export Documents="/mnt/d/zibo/Documents"
+export PATH="$PATH:$HOME/rclone"
 
 # statship configure
 # eval "$(starship init zsh)"
@@ -171,9 +170,6 @@ if [ -x /usr/bin/dircolors ]; then
     alias fgrep='fgrep --color=auto'
     alias egrep='egrep --color=auto'
 fi
-vscode(){
-    /mnt/c/Portable\ Software/VSCode/Code.exe $*   &>/dev/null &
-}
 alias top=htop
 alias v=nvim
 alias vi=nvim
@@ -182,27 +178,43 @@ alias vim=nvim
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-export PATH="/home/zibo/.local/bin:$PATH"
-alias poweroff="powershell.exe Stop-Computer"
-alias reboot="powershell.exe Restart-Computer"
-alias cleardns="powershell.exe clear-DnsClientCache"
+export PATH="$HOME/.local/bin:$PATH"
 
 bindkey -M vicmd "H" vi-beginning-of-line
 bindkey -M vicmd "L" vi-end-of-line
 
-function clash() {
-    powershell.exe Get-Process -Name "'Clash for Windows'" &>/dev/null
-    if [ $? -eq 0 ]; then
-        export https_proxy="http://172.20.160.1:7893"
-        export http_proxy="http://172.20.160.1:7893"
+# 判断当前系统是不是wsl
+function is_wsl() {
+    if [ -f /proc/sys/fs/binfmt_misc/WSLInterop ]; then
+        return 0
     else
-        export https_proxy=""
-        export http_proxy=""
+        return 1
     fi
 }
-
-clash
-
+if is_wsl ; then
+    function clash() {
+        powershell.exe Get-Process -Name "'Clash for Windows'" &>/dev/null
+        if [ $? -eq 0 ]; then
+            export https_proxy="http://172.20.160.1:7893"
+            export http_proxy="http://172.20.160.1:7893"
+        else
+            export https_proxy=""
+            export http_proxy=""
+        fi
+    }
+    alias poweroff="powershell.exe Stop-Computer"
+    alias reboot="powershell.exe Restart-Computer"
+    alias cleardns="powershell.exe clear-DnsClientCache"
+    export Soft="/mnt/c/Portable Software"
+    alias code="/mnt/c/Portable\ Software/VSCode/bin/code"
+    export Downloads="/mnt/d/zibo/Downloads"
+    export Onedrive="/mnt/d/onedrive"
+    export Documents="/mnt/d/zibo/Documents"
+    clash
+    vscode(){
+        /mnt/c/Portable\ Software/VSCode/Code.exe $*   &>/dev/null &
+    }
+fi
 alias nvim-lazy="NVIM_APPNAME=LazyVim /usr/bin/nvim"
 alias nvim-kick="NVIM_APPNAME=kickstart /usr/bin/nvim"
 alias nvim-chad="NVIM_APPNAME=NvChad /user/bin/nvim"
@@ -228,7 +240,6 @@ function nvims() {
     NVIM_APPNAME=$config /usr/bin/nvim $@
 }
 alias nvim=nvim-astro
-export EDITOR="nvim-astro"
 export FZF_DEFAULT_OPTS="--bind=tab:down --bind='shift-tab:up' --bind='ctrl-a:toggle-all' --cycle"
 bindkey -s '^a' "nvims\n"
 (( ! ${+functions[p10k]} )) || p10k finalize
