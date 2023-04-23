@@ -1,0 +1,5 @@
+[user]
+	name = ziboh
+	email = sharezhou@outlook.com
+[core]
+	editor = NVIM_APPNAME=AstroNvim nvim
