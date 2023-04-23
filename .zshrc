@@ -1,10 +1,12 @@
 # web search
 export ZSH_WEB_SEARCH_ENGINES=(gith "https://github.com/")
 # pyenv
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
+if [  -d "$HOME/.pyenv" ]; then
+    export PYENV_ROOT="$HOME/.pyenv"
+    export PATH="$PYENV_ROOT/bin:$PATH"
+    eval "$(pyenv init -)"
+    eval "$(pyenv virtualenv-init -)"
+fi
 # zsh cache
 export ZSH_CACHE_DIR="$HOME/.cache/zsh"
 # encrypt zsh
@@ -239,7 +241,7 @@ function nvims() {
     fi
     NVIM_APPNAME=$config /usr/bin/nvim $@
 }
-alias nvim=nvim-astro
+# alias nvim=nvim-astro
 export FZF_DEFAULT_OPTS="--bind=tab:down --bind='shift-tab:up' --bind='ctrl-a:toggle-all' --cycle"
 bindkey -s '^a' "nvims\n"
 (( ! ${+functions[p10k]} )) || p10k finalize
