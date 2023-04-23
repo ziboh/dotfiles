@@ -7,6 +7,7 @@ if [  -d "$HOME/.pyenv" ]; then
     eval "$(pyenv init -)"
     eval "$(pyenv virtualenv-init -)"
 fi
+
 # zsh cache
 export ZSH_CACHE_DIR="$HOME/.cache/zsh"
 # encrypt zsh
@@ -153,14 +154,13 @@ zstyle ':zim:zmodule' use 'degit'
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
 export PATH="$PATH:$HOME/rclone"
 
 # statship configure
 # eval "$(starship init zsh)"
 # export STARSHIP_CONFIG="$HOME/.config/starship.toml"
 
-export C="/mnt/c"
-export D="/mnt/d"
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
     alias ls='ls --color=auto'
@@ -207,11 +207,13 @@ if is_wsl ; then
     alias poweroff="powershell.exe Stop-Computer"
     alias reboot="powershell.exe Restart-Computer"
     alias cleardns="powershell.exe clear-DnsClientCache"
-    export Soft="/mnt/c/Portable Software"
     alias code="/mnt/c/Portable\ Software/VSCode/bin/code"
+    export Soft="/mnt/c/Portable Software"
     export Downloads="/mnt/d/zibo/Downloads"
     export Onedrive="/mnt/d/onedrive"
     export Documents="/mnt/d/zibo/Documents"
+    export C="/mnt/c"
+    export D="/mnt/d"
     clash
     vscode(){
         /mnt/c/Portable\ Software/VSCode/Code.exe $*   &>/dev/null &
