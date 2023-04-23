@@ -16,7 +16,7 @@ if [ ! -d "$HOME/.pyenv" ]; then
 fi
 
 if [  -d "$HOME/.pyenv" ];then
-    if [ ! -d "$PYENV_ROOT/plugins/pyenv-virtualenv"]; then
+    if [ ! -d "$PYENV_ROOT/plugins/pyenv-virtualenv" ]; then
         git clone https://github.com/pyenv/pyenv-virtualenv.git $(pyenv root)/plugins/pyenv-virtualenv
         eval "$(pyenv virtualenv-init -)"
         pyenv virtualenv $PYENV_PYTHON pynvim
@@ -36,12 +36,12 @@ else
     rm -rf fzf.tar.gz
 fi
 
-if [ ! -d "$ZSH_CACHE_DIR/thefuck"]; then 
+if [ ! -d "$ZSH_CACHE_DIR/thefuck" ]; then 
     echo 'ZSH_CACHE_DIR'
-    mkdir -r $ZSH_CACHE_DIR/thefuck
+    mkdir -p $ZSH_CACHE_DIR/thefuck
 fi
 
-if [! -f "/usr/local/bin/lazygit"]; then
+if [ ! -f "/usr/local/bin/lazygit" ]; then
     LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')
     curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
     tar xf lazygit.tar.gz lazygit
@@ -49,7 +49,9 @@ if [! -f "/usr/local/bin/lazygit"]; then
     rm -rf lazygit.tar.gz lazygit
 fi
 
-sudo apt install -y autojump
+if ! command -v autojump >/dev/null 2>&1; then
+    sudo apt install -y autojump
+fi
 echo "Init submodules"
 yadm submodule update --recursive --init
 yadm decrypt
