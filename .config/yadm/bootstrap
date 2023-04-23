@@ -1,4 +1,5 @@
 #!/bin/zsh
+export ZSH_CACHE_DIR="$HOME/.cache/zsh"
 cd "$HOME"
 PYENV_PYTHON=3.10.9
 if [ ! -d "$HOME/.pyenv" ]; then
@@ -34,6 +35,20 @@ else
     tar -zxvf fzf.tar.gz -C ~/bin
     rm -rf fzf.tar.gz
 fi
+
+if [ ! -d "$ZSH_CACHE_DIR/thefuck"]; then 
+    echo 'ZSH_CACHE_DIR'
+    mkdir -r $ZSH_CACHE_DIR/thefuck
+fi
+
+if [! -f "/usr/local/bin/lazygit"]; then
+    LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')
+    curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
+    tar xf lazygit.tar.gz lazygit
+    sudo install lazygit /usr/local/bin
+    rm -rf lazygit.tar.gz lazygit
+fi
+
 sudo apt install -y autojump
 echo "Init submodules"
 yadm submodule update --recursive --init
