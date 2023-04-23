@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/zsh
 cd "$HOME"
 PYENV_PYTHON=3.10.9
 if [ ! -d "$HOME/.pyenv" ]; then
@@ -9,6 +9,9 @@ if [ ! -d "$HOME/.pyenv" ]; then
     export PATH="$PYENV_ROOT/bin:$PATH"
     eval "$(pyenv init -)"
     pyenv install $PYENV_PYTHON
+    pyenv global $PYENV_ROOT
+    pyenv shell $PYENV_ROOT
+    pip install thefuck
 fi
 
 if [  -d "$HOME/.pyenv" ];then
@@ -17,6 +20,19 @@ if [  -d "$HOME/.pyenv" ];then
         eval "$(pyenv virtualenv-init -)"
         pyenv virtualenv $PYENV_PYTHON pynvim
     fi
+fi
+# 判断$HOME/bin文件夹是否存在
+if [ ! -d "$HOME/bin" ]; then
+    mkdir $HOME/bin
+fi
+
+# 判断$HOME/bin/fzf文件是否存在
+if [ -f "$HOME/bin/fzf" ]; then
+    echo "$HOME/bin/fzf exists."
+else
+    wget https://github.com/junegunn/fzf/releases/download/0.39.0/fzf-0.39.0-linux_amd64.tar.gz --output fzf.tar.gz
+    tar -zxvf fzf.tar.gz -C ~/bin
+    rm -rf fzf.tar.gz
 fi
 sudo apt install -y autojump
 echo "Init submodules"
