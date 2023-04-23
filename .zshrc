@@ -245,6 +245,7 @@ function nvims() {
     NVIM_APPNAME=$config /usr/bin/nvim $@
 }
 # alias nvim=nvim-astro
+alias lg="lazygit --git-dir $HOME/.local/share/yadm/repo.git/ -w $HOME"
 export FZF_DEFAULT_OPTS="--bind=tab:down --bind='shift-tab:up' --bind='ctrl-a:toggle-all' --cycle"
 bindkey -s '^a' "nvims\n"
 (( ! ${+functions[p10k]} )) || p10k finalize
