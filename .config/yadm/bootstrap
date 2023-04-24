@@ -29,6 +29,7 @@ do
     yadm decrypt
     if [ $? -eq 0 ] # 判断上一个命令是否执行成功
     then
+        source .encrypt.zsh
         for i in {1..3}; do
             if curl --max-time 5 -o /dev/null --silent https://google.com; then
                 echo "Network connection successful."
@@ -36,11 +37,11 @@ do
             elif [ $i -eq 3 ]; then
                 echo "Unable to connect to Google after 3 attempts. Setting proxy."
                 proxy
+                echo "setting http proxy: $http_proxy"
             else
                 echo "Attempt $i failed. Trying again."
             fi
         done
-        source .encrypt.zsh
         break # 如果执行成功，跳出循环
     fi
     ((count++))
@@ -52,16 +53,18 @@ if [ ! -s "$NVM_DIR/nvm.sh" ]; then
         cd "$NVM_DIR"
         git checkout `git describe --abbrev=0 --tags --match "v[0-9]*" $(git rev-list --tags --max-count=1)`
     ) && \. "$NVM_DIR/nvm.sh"
+    [ $? -eq 0 ] && echo "nvm install node"
     cd $HOME
-    nvm install node
     export NVM_DIR="$HOME/.nvm"
     [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+    nvm install node
     node install -g neovim
 fi
 
 if [ ! -d "$HOME/.pyenv" ]; then
     sudo apt install -y liblzma-dev build-essential libreadline-dev libncursesw5-dev libssl-dev libsqlite3-dev tk-dev libgdbm-dev libc6-dev libbz2-dev libffi-dev zlib1g-dev
     git clone https://github.com/pyenv/pyenv.git ~/.pyenv
+    [ $? -eq 0 ] && echo "pyenv install done"
     export PYENV_ROOT="$HOME/.pyenv"
     export PATH="$PYENV_ROOT/bin:$PATH"
     eval "$(pyenv init -)"
@@ -90,6 +93,7 @@ else
 
     # 构建最新的 fzf release 下载链接
     url="https://github.com/junegunn/fzf/releases/download/${latest}/fzf-${latest}-linux_amd64.tar.gz"
+    echo "Download fzf..."
     curl -Lo fzf.tar.gz $url
     tar -zxvf fzf.tar.gz -C ~/bin
     rm -rf fzf.tar.gz
@@ -97,6 +101,7 @@ fi
 
 if [ ! -f "/usr/local/bin/lazygit" ]; then
     LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')
+    echo "Download lazygit..."
     curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
     tar xf lazygit.tar.gz lazygit
     sudo install lazygit /usr/local/bin
