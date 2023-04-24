@@ -58,6 +58,7 @@ if [ ! -s "$NVM_DIR/nvm.sh" ]; then
     export NVM_DIR="$HOME/.nvm"
     [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
     nvm install node
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
     node install -g neovim
 fi
 
@@ -108,7 +109,7 @@ if [ ! -f "/usr/local/bin/lazygit" ]; then
     rm -rf lazygit.tar.gz lazygit
 fi
 
-if ! command -v autojump >/dev/null 2>&1; then
+if [ -z $(which autojump) ]; then
     sudo apt install -y autojump
 fi
 
