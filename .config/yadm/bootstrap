@@ -90,14 +90,15 @@ fi
 if [ ! -d "$ZSH_CACHE_DIR/thefuck" ]; then
     mkdir -p $ZSH_CACHE_DIR/thefuck
 fi
+
 if [ -z $(which cargo) ]; then
-    curl https://sh.rustup.rs -sSf | sh -y
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
     source "$HOME/.cargo/env"
     cargo install --git https://github.com/MordechaiHadad/bob.git
     bob install $NEOVIM_VERSION
     mkdir -p "/home/$USER/.local/sharr/bob/nvim-bin"
+    bob use $NEOVIM_VERSION
 fi
-yadm checkout HEAD .zshrc
-echo "Init submodules"
+
 yadm submodule update --recursive --init
 zsh
