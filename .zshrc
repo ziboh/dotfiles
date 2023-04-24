@@ -194,6 +194,7 @@ function is_wsl() {
         return 1
     fi
 }
+
 if is_wsl ; then
     function clash() {
         powershell.exe Get-Process -Name "'Clash for Windows'" &>/dev/null
@@ -220,6 +221,7 @@ if is_wsl ; then
         /mnt/c/Portable\ Software/VSCode/Code.exe $*   &>/dev/null &
     }
 fi
+
 alias nvim-lazy="NVIM_APPNAME=LazyVim /usr/bin/nvim"
 alias nvim-kick="NVIM_APPNAME=kickstart /usr/bin/nvim"
 alias nvim-chad="NVIM_APPNAME=NvChad /user/bin/nvim"

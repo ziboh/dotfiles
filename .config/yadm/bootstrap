@@ -22,6 +22,7 @@ if [  -d "$HOME/.pyenv" ];then
         pyenv virtualenv $PYENV_PYTHON pynvim
     fi
 fi
+
 # 判断$HOME/bin文件夹是否存在
 if [ ! -d "$HOME/bin" ]; then
     mkdir $HOME/bin
@@ -36,7 +37,7 @@ else
     rm -rf fzf.tar.gz
 fi
 
-if [ ! -d "$ZSH_CACHE_DIR/thefuck" ]; then 
+if [ ! -d "$ZSH_CACHE_DIR/thefuck" ]; then
     echo 'ZSH_CACHE_DIR'
     mkdir -p $ZSH_CACHE_DIR/thefuck
 fi
@@ -52,6 +53,18 @@ fi
 if ! command -v autojump >/dev/null 2>&1; then
     sudo apt install -y autojump
 fi
+
+if [ ! -s "$NVM_DIR/nvm.sh" ]; then
+    export NVM_DIR="$HOME/.nvm" && (
+        git clone https://github.com/nvm-sh/nvm.git "$NVM_DIR"
+        cd "$NVM_DIR"
+        git checkout `git describe --abbrev=0 --tags --match "v[0-9]*" $(git rev-list --tags --max-count=1)`
+    ) && \. "$NVM_DIR/nvm.sh"
+    cd $HOME
+    nvm install node
+    node install -g neovim
+fi
+
 echo "Init submodules"
 yadm submodule update --recursive --init
 yadm decrypt
