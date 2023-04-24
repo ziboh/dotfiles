@@ -2,8 +2,9 @@
 PYTHON_VERSION=3.10.9
 NEOVIM_VERSION=0.9.0
 
-export ZSH_CACHE_DIR="$HOME/.cache/zsh"
 cd "$HOME"
+source .encrypt.zsh
+export ZSH_CACHE_DIR="$HOME/.cache/zsh"
 sudo apt update
 if [ -z $(which git) ]; then
     sudo apt-get install git -y
@@ -48,8 +49,9 @@ fi
 
 if [  -d "$HOME/.pyenv" ];then
     if [ ! -d "$PYENV_ROOT/plugins/pyenv-virtualenv" ]; then
-        git clone https://github.com/pyenv/pyenv-virtualenv.git $(pyenv root)/plugins/pyenv-virtualenv
+        git clone https://github.com/pyenv/pyenv-virtualenv.git $PYENV_ROOT/plugins/pyenv-virtualenv
         pyenv virtualenv $PYTHON_VERSION pynvim
+        $HOME/.pyenv/versions/pynvim/bin/python -m pip install --upgrade pip
         $HOME/.pyenv/versions/pynvim/bin/python -m pip install thefuck
     fi
 fi
@@ -85,13 +87,14 @@ if ! command -v autojump >/dev/null 2>&1; then
 fi
 
 if [ ! -d "$ZSH_CACHE_DIR/thefuck" ]; then
-    echo 'ZSH_CACHE_DIR'
     mkdir -p $ZSH_CACHE_DIR/thefuck
 fi
 if [ -z $(which cargo) ]; then
-    curl https://sh.rustup.rs -sSf | sh
+    curl https://sh.rustup.rs -sSf | sh -y
+    source "$HOME/.cargo/env"
     cargo install --git https://github.com/MordechaiHadad/bob.git
     bob install $NEOVIM_VERSION
+    mkdir -p "/home/$USER/.local/sharr/bob/nvim-bin"
 fi
 yadm checkout HEAD .zshrc
 echo "Init submodules"
