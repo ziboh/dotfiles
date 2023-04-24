@@ -21,10 +21,6 @@ if [ -z $(which zsh) ]; then
     chsh -s $(which zsh)
 fi
 
-if [ -z $(which cargo) ]; then
-    curl -sSf https://static.rust-lang.org/rustup.sh | shfi
-    cargo install --git https://github.com/MordechaiHadad/bob.git
-fi
 
 if [ ! -s "$NVM_DIR/nvm.sh" ]; then
     export NVM_DIR="$HOME/.nvm" && (
@@ -61,7 +57,7 @@ else
 
     # 构建最新的 fzf release 下载链接
     url="https://github.com/junegunn/fzf/releases/download/${latest}/fzf-${latest}-linux_amd64.tar.gz"
-    wget $url --output fzf.tar.gz
+    curl -Lo fzf.tar.gz $url
     tar -zxvf fzf.tar.gz -C ~/bin
     rm -rf fzf.tar.gz
 fi
@@ -86,12 +82,17 @@ eval "$(pyenv virtualenv-init -)"
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 
+exec zsh
 node install -g neovim
 pip install thefuck
 pyenv virtualenv $PYENV_PYTHON pynvim
 if [ ! -d "$ZSH_CACHE_DIR/thefuck" ]; then
     echo 'ZSH_CACHE_DIR'
     mkdir -p $ZSH_CACHE_DIR/thefuck
+fi
+if [ -z $(which cargo) ]; then
+    curl https://sh.rustup.rs -sSf | sh
+    cargo install --git https://github.com/MordechaiHadad/bob.git
 fi
 yadm checkout HEAD .zshrc
 echo "Init submodules"
