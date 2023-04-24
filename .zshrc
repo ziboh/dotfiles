@@ -176,6 +176,7 @@ alias top=htop
 alias v=nvim
 alias vi=nvim
 alias vim=nvim
+alias ll="ls -l"
 
 export PATH="$HOME/bin:$PATH"
 export PATH="/home/$USER/.local/share/bob/nvim-bin:$PATH"
