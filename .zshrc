@@ -223,10 +223,10 @@ if is_wsl ; then
     }
 fi
 
-alias nvim-lazy="NVIM_APPNAME=LazyVim /usr/bin/nvim"
-alias nvim-kick="NVIM_APPNAME=kickstart /usr/bin/nvim"
-alias nvim-chad="NVIM_APPNAME=NvChad /user/bin/nvim"
-alias nvim-astro="NVIM_APPNAME=AstroNvim /usr/bin/nvim"
+alias nvim-lazy="NVIM_APPNAME=LazyVim nvim"
+alias nvim-kick="NVIM_APPNAME=kickstart nvim"
+alias nvim-chad="NVIM_APPNAME=NvChad nvim"
+alias nvim-astro="NVIM_APPNAME=AstroNvim nvim"
 export NVIM_DEFAULT_CONFIG="AstroNvim"
 function nvims() {
     items=("default" "kickstart" "LazyVim" "NvChad" "AstroNvim" "LunarVim")
@@ -245,9 +245,9 @@ function nvims() {
             config=$NVIM_DEFAULT_CONFIG
         fi
     fi
-    NVIM_APPNAME=$config /usr/bin/nvim $@
+    NVIM_APPNAME=$config nvim $@
 }
-# alias nvim=nvim-astro
+
 alias lg="lazygit --git-dir $HOME/.local/share/yadm/repo.git/ -w $HOME"
 export FZF_DEFAULT_OPTS="--bind=tab:down --bind='shift-tab:up' --bind='ctrl-a:toggle-all' --cycle"
 bindkey -s '^a' "nvims\n"
