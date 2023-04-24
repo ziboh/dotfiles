@@ -74,10 +74,10 @@ if [ ! -d "$HOME/.pyenv" ]; then
     git clone https://github.com/pyenv/pyenv.git ~/.pyenv
     [ $? -eq 0 ] && echo "pyenv install done"
     export PYENV_ROOT="$HOME/.pyenv"
+    echo $PYTHON_VERSION > "$PYENV_ROOT/version"
     export PATH="$PYENV_ROOT/bin:$PATH"
     eval "$(pyenv init -)"
     pyenv install $PYTHON_VERSION
-    echo $PYTHON_VERSION > "$PYENV_ROOT/version"
     pyenv shell $PYTHON_VERSION
     $HOME/.pyenv/versions/$PYTHON_VERSION/bin/python -m pip install --upgrade pip
     $HOME/.pyenv/versions/$PYTHON_VERSION/bin/python -m pip install thefuck
@@ -85,7 +85,6 @@ fi
 
 if [  -d "$HOME/.pyenv" ];then
     if [ ! -d "$PYENV_ROOT/plugins/pyenv-virtualenv" ]; then
-        pyenv global $PYENV_ROOT
         git clone https://github.com/pyenv/pyenv-virtualenv.git $PYENV_ROOT/plugins/pyenv-virtualenv
         pyenv virtualenv $PYTHON_VERSION pynvim
         $HOME/.pyenv/versions/pynvim/bin/python -m pip install --upgrade pip
