@@ -3,6 +3,7 @@ PYTHON_VERSION=3.10.9
 NEOVIM_VERSION=0.9.0
 
 cd "$HOME"
+yadm decrypt
 source .encrypt.zsh
 export ZSH_CACHE_DIR="$HOME/.cache/zsh"
 sudo apt update
@@ -99,5 +100,4 @@ fi
 yadm checkout HEAD .zshrc
 echo "Init submodules"
 yadm submodule update --recursive --init
-yadm decrypt
 zsh
