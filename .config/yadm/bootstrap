@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/bin/bash
 export ZSH_CACHE_DIR="$HOME/.cache/zsh"
 cd "$HOME"
 PYENV_PYTHON=3.10.9
@@ -65,7 +65,7 @@ if [ ! -s "$NVM_DIR/nvm.sh" ]; then
     node install -g neovim
 fi
 
+yadm checkout HEAD .zshrc
 echo "Init submodules"
 yadm submodule update --recursive --init
 yadm decrypt
-yadm checkout HEAD .zshrc
