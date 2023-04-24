@@ -39,7 +39,7 @@ if [ -z $(which zsh) ]; then
     chsh -s $(which zsh)
 fi
 
-if decrypt; then
+if  $decrypt; then
     source .encrypt.zsh
     for i in {1..3}; do
         if curl --max-time 5 -o /dev/null --silent https://google.com; then
