@@ -17,7 +17,7 @@ do
     ((count++))
 done
 
-sudo apt update
+sudo apt update &>/dev/null
 if [ -z $(which git) ]; then
     echo "install git"
     sudo apt-get install git -y &>/dev/null
@@ -77,15 +77,19 @@ if [ ! -d "$HOME/.pyenv" ]; then
     export PATH="$PYENV_ROOT/bin:$PATH"
     eval "$(pyenv init -)"
     pyenv install $PYTHON_VERSION
-    pyenv global $PYENV_ROOT
+    echo $PYTHON_VERSION > "$PYENV_ROOT/version"
+    pyenv shell $PYTHON_VERSION
+    $HOME/.pyenv/versions/$PYTHON_VERSION/bin/python -m pip install --upgrade pip
+    $HOME/.pyenv/versions/$PYTHON_VERSION/bin/python -m pip install thefuck
 fi
 
 if [  -d "$HOME/.pyenv" ];then
     if [ ! -d "$PYENV_ROOT/plugins/pyenv-virtualenv" ]; then
+        pyenv global $PYENV_ROOT
         git clone https://github.com/pyenv/pyenv-virtualenv.git $PYENV_ROOT/plugins/pyenv-virtualenv
         pyenv virtualenv $PYTHON_VERSION pynvim
         $HOME/.pyenv/versions/pynvim/bin/python -m pip install --upgrade pip
-        $HOME/.pyenv/versions/pynvim/bin/python -m pip install thefuck
+        $HOME/.pyenv/versions/pynvim/bin/python -m pip install pynvim
     fi
 fi
 
@@ -93,9 +97,7 @@ if [ ! -d "$HOME/bin" ]; then
     mkdir $HOME/bin
 fi
 
-if [ -f "$HOME/bin/fzf" ]; then
-    echo "$HOME/bin/fzf exists."
-else
+if [ ! -f "$HOME/bin/fzf" ]; then
     # 从 Github API 获取最新的 fzf release 发布名称和版本号
     latest=$(curl -s https://api.github.com/repos/junegunn/fzf/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")')
 
