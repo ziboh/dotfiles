@@ -38,6 +38,10 @@ if [ -z $(which zsh) ]; then
     sudo apt-get install zsh -y &>/dev/null
     chsh -s $(which zsh)
 fi
+if [ -z $(which starship) ]; then
+    echo "intall starship"
+    curl -fsSL https://starship.rs/install.sh | bash -s -- -y &>/dev/null
+fi
 
 if  $decrypt; then
     source .encrypt.zsh
@@ -96,7 +100,7 @@ if [ ! -d "$HOME/bin" ]; then
     mkdir $HOME/bin
 fi
 
-if [ ! -f "$HOME/bin/fzf" ]; then
+if [ -z $(which fzf) ]; then
     # 从 Github API 获取最新的 fzf release 发布名称和版本号
     latest=$(curl -s https://api.github.com/repos/junegunn/fzf/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")')
 
@@ -122,8 +126,8 @@ if [ -z $(which autojump) ]; then
     sudo apt install -y autojump &>/dev/null
 fi
 
-if [ ! -d "$ZSH_CACHE_DIR/thefuck" ]; then
-    mkdir -p $ZSH_CACHE_DIR/thefuck
+if [ ! -d "$ZSH_CACHE_DIR" ]; then
+    mkdir -p $ZSH_CACHE_DIR
 fi
 
 if [ -z $(which cargo) ]; then

@@ -1,3 +1,8 @@
+addpath() {
+    if [[ ":$PATH:" != *":$1:"* ]]; then
+        export PATH=$1:$PATH
+    fi
+}
 # web search
 export ZSH_WEB_SEARCH_ENGINES=(gith "https://github.com/")
 # pyenv
@@ -152,14 +157,16 @@ zstyle ':zim:zmodule' use 'degit'
 
 # Set editor default keymap to emacs (`-e`) or vi (`-v`)
 
+# eval "$(starship init zsh)"
+# export STARSHIP_CONFIG="$HOME/.config/starship.toml"
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-export PATH="$PATH:$HOME/rclone"
+fpath+=~/.zfunc
+compinit
+addpath "$HOME/rclone"
 
 # statship configure
-# eval "$(starship init zsh)"
-# export STARSHIP_CONFIG="$HOME/.config/starship.toml"
 
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
@@ -177,16 +184,16 @@ alias v=nvim
 alias vi=nvim
 alias vim=nvim
 alias ll="ls -l"
+alias ...="cd ../.."
 
-export PATH="$HOME/bin:$PATH"
-export PATH="/home/$USER/.local/share/bob/nvim-bin:$PATH"
+addpath "$HOME/bin"
+addpath "/home/$USER/.local/share/bob/nvim-bin"
+addpath "$HOME/.local/bin"
+
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-export PATH="$HOME/.local/bin:$PATH"
 
-bindkey -M vicmd "H" vi-beginning-of-line
-bindkey -M vicmd "L" vi-end-of-line
 
 # 判断当前系统是不是wsl
 function is_wsl() {
@@ -208,6 +215,7 @@ if is_wsl ; then
             export http_proxy=""
         fi
     }
+    export WIN_CONFIG="/mnt/d/zibo/Documents/git"
     alias poweroff="powershell.exe Stop-Computer"
     alias reboot="powershell.exe Restart-Computer"
     alias cleardns="powershell.exe clear-DnsClientCache"
@@ -251,5 +259,6 @@ function nvims() {
 
 alias lg="lazygit --git-dir $HOME/.local/share/yadm/repo.git/ -w $HOME"
 export FZF_DEFAULT_OPTS="--bind=tab:down --bind='shift-tab:up' --bind='ctrl-a:toggle-all' --cycle"
+bindkey -M vicmd "H" vi-beginning-of-line
+bindkey -M vicmd "L" vi-end-of-line
 bindkey -s '^a' "nvims\n"
-(( ! ${+functions[p10k]} )) || p10k finalize

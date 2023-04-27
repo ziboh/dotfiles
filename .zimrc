@@ -20,7 +20,6 @@ zmodule input
 zmodule termtitle
 # Utility aliases and functions. Adds colour to ls, grep and less.
 zmodule utility
-zmodule romkatv/powerlevel10k
 #
 #Prompt
 #
@@ -68,14 +67,12 @@ zmodule agkozak/zsh-z
 zmodule Aloxaf/fzf-tab
 zmodule wting/autojump
 # vi mode
-# 如果没有NVIM环境变量，就加载zsh-vi-mode
 zmodule jeffreytse/zsh-vi-mode
 
 # ohmyzsh
-# zmodule ohmyzsh/ohmyzsh --root plugins/sudo
-# zmodule ohmyzsh/ohmyzsh --root plugins/vi-mode
 zmodule ohmyzsh/ohmyzsh --root plugins/web-search
 zmodule ohmyzsh/ohmyzsh --source lib/functions.zsh
 zmodule ohmyzsh/ohmyzsh --root plugins/thefuck
 zmodule ohmyzsh/ohmyzsh --root plugins/autojump
 
+zmodule romkatv/powerlevel10k
