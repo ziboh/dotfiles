@@ -3,8 +3,10 @@ addpath() {
         export PATH=$1:$PATH
     fi
 }
+
 # web search
 export ZSH_WEB_SEARCH_ENGINES=(gith "https://github.com/")
+
 # pyenv
 if [  -d "$HOME/.pyenv" ]; then
     export PYENV_ROOT="$HOME/.pyenv"
@@ -261,4 +263,3 @@ alias lg="lazygit --git-dir $HOME/.local/share/yadm/repo.git/ -w $HOME"
 export FZF_DEFAULT_OPTS="--bind=tab:down --bind='shift-tab:up' --bind='ctrl-a:toggle-all' --cycle"
 bindkey -M vicmd "H" vi-beginning-of-line
 bindkey -M vicmd "L" vi-end-of-line
-bindkey -s '^a' "nvims\n"
