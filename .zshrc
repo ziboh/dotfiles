@@ -181,12 +181,19 @@ if [ -x /usr/bin/dircolors ]; then
     alias fgrep='fgrep --color=auto'
     alias egrep='egrep --color=auto'
 fi
+
 alias top=htop
 alias v=nvim
 alias vi=nvim
 alias vim=nvim
 alias ll="ls -l"
 alias ...="cd ../.."
+alias lg="lazygit --git-dir $HOME/.local/share/yadm/repo.git/ -w $HOME"
+alias nvim-lazy="NVIM_APPNAME=LazyVim nvim"
+alias nvim-kick="NVIM_APPNAME=kickstart nvim"
+alias nvim-chad="NVIM_APPNAME=NvChad nvim"
+alias nvim-astro="NVIM_APPNAME=AstroNvim nvim"
+export FZF_DEFAULT_OPTS="--bind=tab:down --bind='shift-tab:up' --bind='ctrl-a:toggle-all' --cycle"
 
 addpath "$HOME/bin"
 addpath "/home/$USER/.local/share/bob/nvim-bin"
@@ -234,10 +241,6 @@ if is_wsl ; then
     }
 fi
 
-alias nvim-lazy="NVIM_APPNAME=LazyVim nvim"
-alias nvim-kick="NVIM_APPNAME=kickstart nvim"
-alias nvim-chad="NVIM_APPNAME=NvChad nvim"
-alias nvim-astro="NVIM_APPNAME=AstroNvim nvim"
 export NVIM_DEFAULT_CONFIG="AstroNvim"
 function nvims() {
     items=("default" "kickstart" "LazyVim" "NvChad" "AstroNvim" "LunarVim")
@@ -259,7 +262,5 @@ function nvims() {
     NVIM_APPNAME=$config nvim $@
 }
 
-alias lg="lazygit --git-dir $HOME/.local/share/yadm/repo.git/ -w $HOME"
-export FZF_DEFAULT_OPTS="--bind=tab:down --bind='shift-tab:up' --bind='ctrl-a:toggle-all' --cycle"
 bindkey -M vicmd "H" vi-beginning-of-line
 bindkey -M vicmd "L" vi-end-of-line
