@@ -18,6 +18,10 @@ do
 done
 
 sudo apt update &>/dev/null
+if [ -z $(which unzip) ]; then
+    echo "install unzip"
+    sudo apt-get install unzip -y &>/dev/null
+fi
 if [ -z $(which git) ]; then
     echo "install git"
     sudo apt-get install git -y &>/dev/null
@@ -38,6 +42,7 @@ if [ -z $(which zsh) ]; then
     sudo apt-get install zsh -y &>/dev/null
     chsh -s $(which zsh)
 fi
+
 if [ -z $(which starship) ]; then
     echo "intall starship"
     curl -fsSL https://starship.rs/install.sh | bash -s -- -y &>/dev/null
