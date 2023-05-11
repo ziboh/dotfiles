@@ -1,3 +1,4 @@
 .ssh/*.key
 .encrypt.zsh
 .config/github-copilot/hosts.json
+.config/rclone/rclone.conf
