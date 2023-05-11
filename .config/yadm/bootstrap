@@ -44,7 +44,7 @@ if [ -z $(which starship) ]; then
 fi
 
 if [ -z $(which gcc) ]; then
-    echo "intall starship"
+    echo "intall gcc"
     sudo apt-get install build-essential -y &>/dev/null
 fi
 
