@@ -1,0 +1,11 @@
+[user]
+	email = sharezhou@outlook.com
+	name = ziboh
+[core]
+	editor = NVIM_APPNAME=AstroNvim nvim
+[credential "https://github.com"]
+	helper = 
+	helper = !/usr/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/usr/bin/gh auth git-credential

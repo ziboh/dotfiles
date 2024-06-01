@@ -1,0 +1,3 @@
+.ssh/*.key
+.config/github-copilot/hosts.json
+.config/rclone/rclone.conf
