@@ -1,0 +1,9 @@
+{
+    "diagnostics.disable": [
+        "redefined-local"
+    ],
+    "diagnostics.globals": [
+        "vim",
+        "text_copy"
+    ]
+}
