@@ -11,8 +11,13 @@ export ZSH_WEB_SEARCH_ENGINES=(gith "https://github.com/")
 if [  -d "$HOME/.pyenv" ]; then
     export PYENV_ROOT="$HOME/.pyenv"
     export PATH="$PYENV_ROOT/bin:$PATH"
-    eval "$(pyenv init -)"
-    eval "$(pyenv virtualenv-init -)"
+    python --version > /dev/null 2>&1
+    if [ $? -eq 0 ]; then
+    else
+        eval "$(pyenv init -)"
+        eval "$(pyenv virtualenv-init -)"
+    fi
+
 fi
 
 # zsh cache
@@ -27,7 +32,7 @@ fi
 # export ZDOTDIR="$HOME/.config/zsh"
 # export ZIM_CONFIG_FILE="$HOME/.config/zsh/zimrc"
 # Start configuration added by Zim install {{{
-#
+
 # User configuration sourced by interactive shells
 #
 
@@ -179,6 +184,7 @@ if [ -x /usr/bin/dircolors ]; then
     alias egrep='egrep --color=auto'
 fi
 
+alias fd=fdfind
 alias top=htop
 alias v=nvim
 alias vi=nvim
@@ -271,6 +277,9 @@ alias crash="bash /etc/ShellCrash/menu.sh"
 alias clash="bash /etc/ShellCrash/menu.sh"
 export CRASHDIR="/etc/ShellCrash"
 
+# Change to Zsh's default readkey engine
+ZVM_READKEY_ENGINE=$ZVM_READKEY_ENGINE_ZLE
+export ZVM_VI_EDITOR=nivm
 set_proxy
 
 # Generated for envman. Do not edit.

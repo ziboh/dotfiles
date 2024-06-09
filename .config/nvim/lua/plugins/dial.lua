@@ -77,7 +77,7 @@ return {
 		vim.keymap.set("v", "<C-a>", function()
 			require("dial.map").manipulate("increment", "visual")
 		end)
-		vim.keymap.set("v", "<C-x>", function()
+		vim.keymap.set("v", "<c-x>", function()
 			require("dial.map").manipulate("decrement", "visual")
 		end)
 		vim.keymap.set("v", "g<C-a>", function()

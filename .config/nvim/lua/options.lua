@@ -1,8 +1,15 @@
 -- Hint: use `:h <option>` to figure out the meaning if needed
+vim.g.mapleader = " "
+vim.g.maplocalleader = "\\"
+vim.g.icons_enabled = true
+
+vim.g.transparent_enabled = false
+vim.opt.laststatus = 3 --Global statusline.
 vim.opt.clipboard = "unnamedplus" -- use system clipboard
 vim.opt.completeopt = { "menu", "menuone", "noselect" }
 vim.opt.mouse = "a" -- allow the mouse to be used in Nvim
 vim.opt.scrolloff = 10 -- no less than 10 lines even if you keep scrolling down
+
 -- Tab
 vim.opt.tabstop = 4 -- number of visual spaces per TAB
 vim.opt.softtabstop = 4 -- number of spacesin tab when editing
@@ -28,11 +35,18 @@ vim.opt.smartcase = true -- but make it case sensitive if an uppercase is entere
 -- disable netrw at the very start of your init.lua (strongly advised)
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
+-- optionally enable 24-bit colour
+vim.opt.termguicolors = true
 
-vim.g.mapleader = " "
-vim.g.maplocalleader = "\\"
-
+-- For nvim-ufo
 vim.o.foldcolumn = "1" -- '0' is not bad
 vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
 vim.o.foldlevelstart = 99
-vim.o.foldenable = false
+vim.o.foldenable = true
+
+-- For heirline
+vim.opt.showtabline = 2 -- always display tabline.
+
+--For which-key
+vim.o.timeout = true
+vim.o.timeoutlen = 300

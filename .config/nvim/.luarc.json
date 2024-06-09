@@ -1,9 +1,8 @@
 {
-    "diagnostics.disable": [
-        "redefined-local"
+    "diagnostics.disable": [ "redefined-local",
+        "missing-fields"
     ],
     "diagnostics.globals": [
         "vim",
-        "text_copy"
     ]
 }

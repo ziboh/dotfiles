@@ -124,4 +124,22 @@ return {
 			},
 		},
 	},
+	{
+		"NeogitOrg/neogit",
+		dependencies = {
+			"nvim-lua/plenary.nvim", -- required
+			"sindrets/diffview.nvim", -- optional - Diff integrations
+
+			-- Only one of these is needed, not both.
+			"nvim-telescope/telescope.nvim", -- optional
+			"ibhagwan/fzf-lua", -- optional
+		},
+		config = true,
+		keys = {
+			{ "<leader>gno", "<Cmd>Neogit<CR>", desc = "Open Neogit Tab Page" },
+			{ "<leader>gnc", "<Cmd>Neogit commit<CR>", desc = "Open Neogit Commit Page" },
+			{ "<leader>gnd", ":Neogit cwd=", desc = "Open Neogit Override CWD" },
+			{ "<leader>gnk", ":Neogit kind=", desc = "Open Neogit Override Kind" },
+		},
+	},
 }
