@@ -6,7 +6,7 @@ return {
 		end,
 		keys = {
 			{
-				"<leader>rr",
+				"<leader>r/",
 				function()
 					require("grug-far").grug_far({ prefills = { flags = vim.fn.expand("%") } })
 				end,
@@ -20,7 +20,7 @@ return {
 				desc = "search word",
 			},
 			{
-				"<leader>rr",
+				"<leader>r/",
 				function()
 					require("grug-far").with_visual_selection({ prefills = { flags = vim.fn.expand("%") } })
 				end,

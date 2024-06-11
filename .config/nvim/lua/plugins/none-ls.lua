@@ -1,4 +1,3 @@
-if true then return {} end
 return {
 	"jay-babu/mason-null-ls.nvim",
 	event = { "BufReadPre", "BufNewFile" },

@@ -1,4 +1,3 @@
--- if true then return {} end
 return {
 	"kevinhwang91/nvim-ufo",
 	lazy = false,
@@ -14,12 +13,12 @@ return {
 		}
 		require("ufo").setup({
 			preview = {
-				mappings = {
-					scrollB = "<C-B>",
-					scrollF = "<C-F>",
-					scrollU = "<C-U>",
-					scrollD = "<C-D>",
-				},
+				-- mappings = {
+				-- 	scrollB = "<C-B>",
+				-- 	scrollF = "<C-F>",
+				-- 	scrollU = "<C-U>",
+				-- 	scrollD = "<C-D>",
+				-- },
 			},
 			provider_selector = function(bufnr, filetype, buftype)
 				-- if you prefer treesitter provider rather than lsp,

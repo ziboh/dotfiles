@@ -71,4 +71,5 @@ return {
 	Docs = "",
 	Python = "",
 	Replace = "󰛔",
+	Rust = "",
 }

@@ -1,6 +1,7 @@
 {
     "diagnostics.disable": [ "redefined-local",
-        "missing-fields"
+        "missing-fields",
+        "undefined-doc-name"
     ],
     "diagnostics.globals": [
         "vim",
