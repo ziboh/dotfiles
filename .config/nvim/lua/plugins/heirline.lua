@@ -2,7 +2,7 @@ return {
   "rebelot/heirline.nvim",
   dependencies = { "zeioth/heirline-components.nvim" },
   opts = function()
-    local lib = require("heirline-components.all")
+    local lib = require "heirline-components.all"
     return {
       opts = {
         disable_winbar_cb = function(args) -- We do this to avoid showing it on the greeter.
@@ -17,19 +17,15 @@ return {
       tabline = { -- UI upper bar
         lib.component.tabline_conditional_padding(),
         lib.component.tabline_buffers(),
-        lib.component.fill({ hl = { bg = "tabline_bg" } }),
+        lib.component.fill { hl = { bg = "tabline_bg" } },
         lib.component.tabline_tabpages(),
       },
       winbar = { -- UI breadcrumbs bar
-        init = function(self)
-          self.bufnr = vim.api.nvim_get_current_buf()
-        end,
+        init = function(self) self.bufnr = vim.api.nvim_get_current_buf() end,
         fallthrough = false,
         -- Winbar for terminal, neotree, and aerial.
         {
-          condition = function()
-            return not lib.condition.is_active()
-          end,
+          condition = function() return not lib.condition.is_active() end,
           {
             lib.component.neotree(),
             lib.component.compiler_play(),
@@ -50,16 +46,14 @@ return {
         },
       },
       statuscolumn = { -- UI left column
-        init = function(self)
-          self.bufnr = vim.api.nvim_get_current_buf()
-        end,
+        init = function(self) self.bufnr = vim.api.nvim_get_current_buf() end,
         lib.component.foldcolumn(),
         lib.component.numbercolumn(),
         lib.component.signcolumn(),
       } or nil,
       statusline = { -- UI statusbar
         hl = { fg = "fg", bg = "bg" },
-        lib.component.mode({
+        lib.component.mode {
           mode_text = { pad_text = "center" }, -- if set, displays text.
           paste = { str = "", icon = { kind = "Paste" }, show_empty = true }, -- if set, displays if paste is enabled.
           spell = { str = "", icon = { kind = "Spellcheck" }, show_empty = true }, -- if set, displays if spellcheck is on.
@@ -72,21 +66,17 @@ return {
           update = {
             "ModeChanged", -- events that make this component refresh.
             pattern = "*:*",
-            callback = vim.schedule_wrap(function()
-              vim.cmd.redrawstatus()
-            end),
+            callback = vim.schedule_wrap(function() vim.cmd.redrawstatus() end),
           },
-        }),
+        },
         lib.component.git_branch(),
         lib.component.file_info(),
-        lib.component.git_diff({
+        lib.component.git_diff {
           on_click = {
             name = "yadm_or_git",
-            callback = function()
-              vim.cmd([[Telescope git_or_yadm_files]])
-            end,
+            callback = function() vim.cmd [[Telescope git_or_yadm_files]] end,
           },
-        }),
+        },
         lib.component.diagnostics(),
         lib.component.fill(),
         lib.component.cmd_info(),
@@ -100,8 +90,8 @@ return {
     }
   end,
   config = function(_, opts)
-    local heirline = require("heirline")
-    local heirline_components = require("heirline-components.all")
+    local heirline = require "heirline"
+    local heirline_components = require "heirline-components.all"
 
     -- Setup
     heirline_components.init.subscribe_to_events()

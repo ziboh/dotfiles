@@ -572,14 +572,13 @@ maps.n["<leader>uw"] = {
 }
 maps.n["<leader>uz"] = {
   function() toggle.foldcolumn() end,
- desc = "Toggle foldcolumu",
+  desc = "Toggle foldcolumu",
 }
 
 maps.n["<leader>ud"] = {
   function() toggle.diagnostics(true) end,
   desc = "Toggle Diagnostics",
 }
-
 
 -- Dap
 maps.n["<Leader>d"] = icons.d
@@ -697,6 +696,10 @@ maps.n["<leader>ac"] = {
     end)
   end,
   desc = "chat with Fitten Code",
+}
+maps.v["<Leader>at"] = {
+  function() utils.get_visual_selection() end,
+  desc = "Run To Cursor",
 }
 vim.notify "hello"
 require("utils").set_mappings(maps)

@@ -161,7 +161,7 @@ local rust_on_attach = function(client, bufnr)
     vim.api.nvim_create_autocmd({ "BufEnter", "InsertLeave" }, {
       desc = "Auto show code lenses",
       buffer = bufnr,
-      callback = function() vim.lsp.codelens.refresh() end,
+      callback = function() vim.lsp.codelens.refresh { bufnr = 0 } end,
       group = group,
     })
   end
@@ -257,3 +257,6 @@ lspconfig.lua_ls.setup {
 }
 
 lspconfig.bashls.setup {}
+lspconfig.taplo.setup {
+  on_attach = on_attach,
+}

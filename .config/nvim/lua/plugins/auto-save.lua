@@ -14,7 +14,14 @@ return {
     -- return true: if buffer is ok to be saved
     -- return false: if it's not ok to be saved
     condition = function(buf)
-      if vim.bo.filetype == "oil" then return false end
+      local ignore_filename = { "Cargo.toml", "" }
+      local ignore_ft = { "oil", "telescopetrompt" }
+      for _, fn in ipairs(ignore_filename) do
+        if fn == vim.fn.expand "%:t" then return false end
+      end
+      for _, ft in ipairs(ignore_ft) do
+        if ft == vim.bo.filetype then return false end
+      end
       local fn = vim.fn
       local utils = require "auto-save.utils.data"
 

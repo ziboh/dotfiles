@@ -1,34 +1,26 @@
 return {
   {
-    "Saecki/crates.nvim",
-    lazy = true,
-    dependencies = {
-      "AstroNvim/astrocore",
-      opts = {
-        autocmds = {
-          CmpSourceCargo = {
-            {
-              event = "BufRead",
-              desc = "Load crates.nvim into Cargo buffers",
-              pattern = "Cargo.toml",
-              callback = function()
-                require("cmp").setup.buffer({ sources = { { name = "crates" } } })
-                require("crates")
-              end,
-            },
+    "saecki/crates.nvim",
+    event = { "BufRead Cargo.toml" },
+    dependencies = { "nvim-lua/plenary.nvim" },
+    config = function()
+      require("crates").setup {
+        completion = {
+          cmp = {
+            enabled = true,
+          },
+          crates = {
+            enabled = true, -- disabled by default
+            max_results = 8, -- The maximum number of search results to display
+            min_chars = 3, -- The minimum number of charaters to type before completions begin appearing
           },
         },
-      },
-    },
-    opts = {
-      src = {
-        cmp = { enabled = true },
-      },
-      null_ls = {
-        enabled = true,
-        name = "crates.nvim",
-      },
-    },
+        null_ls = {
+          enabled = true,
+          name = "crates.nvim",
+        },
+      }
+    end,
   },
   {
     "mrcjkb/rustaceanvim",

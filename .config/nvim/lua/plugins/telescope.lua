@@ -4,7 +4,7 @@ return {
     branch = "0.1.x",
     dependencies = { "nvim-lua/plenary.nvim", "pschmitt/telescope-yadm.nvim" },
     config = function()
-      require("telescope").setup({
+      require("telescope").setup {
         extensions = {
           -- Your extension configuration goes here:
           -- extension_name = {
@@ -23,11 +23,11 @@ return {
             keep_insert = true,
           },
         },
-      })
-      require("telescope").load_extension("fzf")
-      require("telescope").load_extension("yadm_files")
-      require("telescope").load_extension("git_or_files")
-      require("telescope").load_extension("git_or_yadm_files")
+      }
+      require("telescope").load_extension "fzf"
+      require("telescope").load_extension "yadm_files"
+      require("telescope").load_extension "git_or_files"
+      require("telescope").load_extension "git_or_yadm_files"
     end,
   },
   {

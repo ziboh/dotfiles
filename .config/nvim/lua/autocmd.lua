@@ -15,15 +15,6 @@ vim.api.nvim_create_autocmd("VimLeavePre", {
   end,
 })
 
-vim.api.nvim_create_autocmd("BufRead", {
-  desc = "Load crates.nvim into Cargo buffers",
-  pattern = "Cargo.toml",
-  callback = function()
-    require("cmp").setup.buffer { sources = { { name = "crates" } } }
-    require "crates"
-  end,
-})
-
 vim.api.nvim_create_autocmd("TextYankPost", {
   callback = function() vim.highlight.on_yank() end,
 })

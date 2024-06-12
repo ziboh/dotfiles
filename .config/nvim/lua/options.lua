@@ -103,6 +103,7 @@ vim.opt.foldenable = true
 
 -- For heirline
 vim.opt.showtabline = 2 -- always display tabline.
+vim.opt.signcolumn = "yes" -- always display signcolumn.
 
 --For which-key
 vim.opt.timeout = true
@@ -113,4 +114,3 @@ vim.opt.swapfile = false
 
 -- USer settings
 vim.g.diagnostics_mode = 3
-

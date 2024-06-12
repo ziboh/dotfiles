@@ -244,7 +244,7 @@ if is_wsl ; then
     }
 fi
 
-export NVIM_DEFAULT_CONFIG="AstroNvim"
+# export NVIM_DEFAULT_CONFIG="AstroNvim"
 function nvims() {
     items=("default"  "LazyVim" "AstroNvim")
     config=$(printf "%s\n" "${items[@]}" | fzf --prompt=" Neovim Config »" --height ~50% --layout=reverse --border --exit-0)

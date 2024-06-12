@@ -338,6 +338,7 @@ function M.on_load(plugins, load_op)
         return
       end
     end
+
     vim.api.nvim_create_autocmd("User", {
       pattern = "LazyLoad",
       desc = ("A function to be ran when one of these plugins runs: %s"):format(vim.inspect(plugins)),
@@ -350,5 +351,14 @@ function M.on_load(plugins, load_op)
     })
   end
 end
-
+function M.get_visual_selection()
+  vim.cmd 'normal! gv"xy'
+  local txt = vim.fn.getreg "x"
+  local tbl = {}
+  for line in txt:gmatch "[^\n]+" do
+    table.insert(tbl, line)
+  end
+  -- return tblend
+  vim.notify(tab)
+end
 return M

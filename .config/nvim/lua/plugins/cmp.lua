@@ -1,7 +1,7 @@
 return {
   "onsails/lspkind.nvim",
   config = function()
-    require("lspkind").init({
+    require("lspkind").init {
       -- DEPRECATED (use mode instead): enables text annotations
       --
       -- default: true
@@ -49,12 +49,12 @@ return {
         TypeParameter = "",
         FittenCode = "",
       },
-    })
+    }
   end,
   {
     "hrsh7th/nvim-cmp",
     dependencies = {
-      "hrsh7th/cmp-nvim-lsp", -- lsp auto-completion
+      "hrsh7th/cmp-nvim-lsp", --   helsp auto-completion
       "hrsh7th/cmp-buffer", -- buffer auto-completion
       "hrsh7th/cmp-path", -- path auto-completion
       "hrsh7th/cmp-cmdline", -- cmdline auto-completion
@@ -65,18 +65,16 @@ return {
       local cmp_ok, cmp = pcall(require, "cmp")
       local lspkind_ok, lspkind = pcall(require, "lspkind")
 
-      if not luasnip_ok or not cmp_ok or not lspkind_ok then
-        return
-      end
+      if not luasnip_ok or not cmp_ok or not lspkind_ok then return end
 
-      cmp.setup({
+      cmp.setup {
         snippet = {
           -- REQUIRED - you must specify a snippet engine
           expand = function(args)
             require("luasnip").lsp_expand(args.body) -- For `luasnip` users.
           end,
         },
-        mapping = cmp.mapping.preset.insert({
+        mapping = cmp.mapping.preset.insert {
           -- Use <C-b/f> to scroll the docs
           ["<C-b>"] = cmp.mapping.scroll_docs(-4),
           ["<C-f>"] = cmp.mapping.scroll_docs(4),
@@ -85,7 +83,7 @@ return {
           ["<C-j>"] = cmp.mapping.select_next_item(),
           -- Use <CR>(Enter) to confirm selection
           -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-          ["<CR>"] = cmp.mapping.confirm({ behavior = cmp.ConfirmBehavior.Insert, select = false }),
+          ["<CR>"] = cmp.mapping.confirm { behavior = cmp.ConfirmBehavior.Insert, select = false },
           -- A super tab
           -- sourc: https://github.com/hrsh7th/nvim-cmp/wiki/Example-mappings#luasnip
           ["<Tab>"] = cmp.mapping(function(fallback)
@@ -108,13 +106,13 @@ return {
               fallback()
             end
           end, { "i", "s" }),
-        }),
+        },
 
         -- Let's configure the item's appearance
         -- source: https://github.com/hrsh7th/nvim-cmp/wiki/Menu-Appearance
         formatting = {
           -- customize the appearance of the completion menu
-          format = lspkind.cmp_format({
+          format = lspkind.cmp_format {
             -- show only symbol annotations
             mode = "symbol",
             -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
@@ -132,30 +130,23 @@ return {
                 path = "[Path]",
                 lazydev = "[Lazy]",
                 fittencode = "[Fitten]",
+                crates = "[Crates]",
               })[entry.source.name]
               return vim_item
             end,
-          }),
+          },
         },
         -- Set source precedence
-        sources = cmp.config.sources({
+        sources = cmp.config.sources {
+          { name = "crates", source_index = 1 }, -- For crates completion
           { name = "fittencode", source_index = 1 },
           { name = "lazydev", source_index = 1 },
           { name = "nvim_lsp", source_index = 1 }, -- For nvim-lsp
           { name = "luasnip", source_index = 1 }, -- For luasnip user
           { name = "buffer", source_index = 1 }, -- For buffer word completion
           { name = "path", source_index = 1 }, -- For path completion
-        }),
-      })
-
-      -- Set configuration for specific filetype.
-      cmp.setup.filetype("gitcommit", {
-        sources = cmp.config.sources({
-          { name = "cmp_git" }, -- You can specify the `cmp_git` source if you were installed it.
-        }, {
-          { name = "buffer" },
-        }),
-      })
+        },
+      }
 
       -- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
       cmp.setup.cmdline({ "/", "?" }, {
@@ -185,15 +176,12 @@ return {
     },
     config = function(_, opts)
       local luasnip_ok, luasnip = pcall(require, "luasnip")
-      if not luasnip_ok then
-        return
-      end
-      if opts then
-        luasnip.config.setup(opts)
-      end
-      vim.tbl_map(function(type)
-        require("luasnip.loaders.from_" .. type).lazy_load()
-      end, { "vscode", "snipmate", "lua" })
+      if not luasnip_ok then return end
+      if opts then luasnip.config.setup(opts) end
+      vim.tbl_map(
+        function(type) require("luasnip.loaders.from_" .. type).lazy_load() end,
+        { "vscode", "snipmate", "lua" }
+      )
       -- friendly-snippets - enable standardized comments snippets
       luasnip.filetype_extend("typescript", { "tsdoc" })
       luasnip.filetype_extend("javascript", { "jsdoc" })
