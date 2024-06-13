@@ -1,6 +1,0 @@
-require "options"
-require "lazy-setup"
-require "keymaps"
-require "autocmd"
-require "colorcheme"
-require "lsp"

@@ -155,12 +155,12 @@ for key ('^[[A' '^P' ${terminfo[kcuu1]}) bindkey ${key} history-substring-search
 for key ('^[[B' '^N' ${terminfo[kcud1]}) bindkey ${key} history-substring-search-down
 for key ('k') bindkey -M vicmd ${key} history-substring-search-up
 for key ('j') bindkey -M vicmd ${key} history-substring-search-down
-unset key
 zstyle ':zim:zmodule' use 'degit'
+unset key
 # }}} End configuration added by Zim install
 
-# Set editor default keymap to emacs (`-e`) or vi (`-v`)
 
+# Set editor default keymap to emacs (`-e`) or vi (`-v`)
 # eval "$(starship init zsh)"
 # export STARSHIP_CONFIG="$HOME/.config/starship.toml"
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
@@ -254,7 +254,8 @@ function nvims() {
     elif [[ $config == "default" ]]; then
         # 判断NVIM_DEFAULT_CONFIG是否存在
         if [[ -z $NVIM_DEFAULT_CONFIG ]]; then
-            config = ''
+            echo "No default config set. Please set NVIM_DEFAULT_CONFIG in your ~/.zshrc"
+            config='nvim'
         else
             config=$NVIM_DEFAULT_CONFIG
         fi
