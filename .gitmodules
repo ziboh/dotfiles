@@ -2,5 +2,5 @@
 	path = .config/AstroNvim
 	url = git@github.com:ziboh/astronvim.git
 [submodule "/root/.config/nvim"]
-	path = /root/.config/nvim
+	path = .config/nvim
 	url = git@github.com:ziboh/nvim_config.git
