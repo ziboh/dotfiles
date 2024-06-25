@@ -174,7 +174,6 @@ addpath "$HOME/rclone"
 
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='ls --color=auto'
     #alias dir='dir --color=auto'
     #alias vdir='vdir --color=auto'
 
@@ -185,11 +184,13 @@ if [ -x /usr/bin/dircolors ]; then
 fi
 
 alias fd=fdfind
-alias top=htop
+alias top=btop
 alias v=nvim
 alias vi=nvim
 alias vim=nvim
-alias ll="ls -l"
+alias ag=chatgpt
+alias ll="exa -l"
+alias ls=exa
 alias ...="cd ../.."
 alias lg="lazygit --git-dir $HOME/.local/share/yadm/repo.git/ -w $HOME"
 alias nvim-lazy="NVIM_APPNAME=LazyVim nvim"
@@ -274,14 +275,16 @@ function unset_proxy() {
 
 bindkey -M vicmd "H" vi-beginning-of-line
 bindkey -M vicmd "L" vi-end-of-line
-alias crash="bash /etc/ShellCrash/menu.sh"
-alias clash="bash /etc/ShellCrash/menu.sh"
+alias crash="sudo bash /etc/ShellCrash/menu.sh"
+alias clash="sudo bash /etc/ShellCrash/menu.sh"
 export CRASHDIR="/etc/ShellCrash"
 
 # Change to Zsh's default readkey engine
 ZVM_READKEY_ENGINE=$ZVM_READKEY_ENGINE_ZLE
 export ZVM_VI_EDITOR=nivm
-set_proxy
-
+# set_proxy
+export GEMINI_API_KEY="AIzaSyB2kW83mQhozH22TeRopdr0g_3EN7O5HcA"
+export OPENAI_API_KEY="KLT7tfcIW3pyupc149B25e8aB85a4dCb86C8812fA0E7307f"
 # Generated for envman. Do not edit.
 [ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
+export GPG_TTY=$(tty)

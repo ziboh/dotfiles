@@ -2,7 +2,8 @@
 PYTHON_VERSION=3.12.4
 NEOVIM_VERSION="stable"
 ZSH_CACHE_DIR="$HOME/.cache/zsh"
-
+ZSH_COMPLETE="$HOME/.zsh-complete"
+mkdir -p "$ZSH_COMPLETE"
 cd "$HOME"
 decrypt=false
 count=0
@@ -38,13 +39,15 @@ fi
 
 if [ -z $(which zsh) ]; then
 	echo "install zsh"
+	sudo apt install libmagickwand-dev -y &>/dev/null
 	sudo apt-get install zsh -y &>/dev/null
 	chsh -s $(which zsh)
 fi
+sudo apt install libmagickwand-dev -y &>/dev/null
 
-if [ -z $(which starship) ]; then
-	echo "intall starship"
-	curl -fsSL https://starship.rs/install.sh | bash -s -- -y &>/dev/null
+if [ -z $(which btop) ]; then
+	echo "install btop"
+	sudo apt-get install btop -y &>/dev/null
 fi
 
 if [ -z $(which gcc) ]; then
@@ -53,7 +56,7 @@ if [ -z $(which gcc) ]; then
 fi
 
 if [ -z $(which rclone) ]; then
-	echo "intall gcc"
+	echo "intall rclone"
 	sudo -v
 	curl https://rclone.org/install.sh | sudo bash
 fi
@@ -136,11 +139,6 @@ if [ ! -f "/usr/local/bin/lazygit" ]; then
 	rm -rf lazygit.tar.gz lazygit
 fi
 
-if [ -z $(which autojump) ]; then
-	echo "install autojump"
-	sudo apt install -y autojump &>/dev/null
-fi
-
 if [ ! -d "$ZSH_CACHE_DIR" ]; then
 	mkdir -p $ZSH_CACHE_DIR
 fi
@@ -152,7 +150,11 @@ if [ -z $(which cargo) ]; then
 	bob use $NEOVIM_VERSION
 	bob install $NEOVIM_VERSION
 	bob use $NEOVIM_VERSION
-	cargo install ripgrep
+	echo "Install ripgrep"
+	cargo install ripgrep >/dev/null
+	rg --generate complete-zsh >"$ZSH_COMPLETE/_rg"
+	echo "Install exa"
+	cargo install exa >/dev/null
 fi
 yadm submodule update --recursive --init
 zsh
