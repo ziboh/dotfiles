@@ -17,7 +17,7 @@ zmodule git
 # Applies correct bindkeys for input events.
 zmodule input
 # Sets a custom terminal title.
-zmodule termtitle
+# zmodule termtitle
 # Utility aliases and functions. Adds colour to ls, grep and less.
 zmodule utility
 #
@@ -65,7 +65,6 @@ zmodule supercrabtree/k
 zmodule pabloariasal/zfm
 zmodule agkozak/zsh-z
 zmodule Aloxaf/fzf-tab
-zmodule wting/autojump
 # vi mode
 zmodule jeffreytse/zsh-vi-mode
 

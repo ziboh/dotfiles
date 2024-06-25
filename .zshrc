@@ -189,8 +189,8 @@ alias v=nvim
 alias vi=nvim
 alias vim=nvim
 alias ag=chatgpt
-alias ll="exa -l"
-alias ls=exa
+# alias ll="exa -l"
+# alias ls=exa
 alias ...="cd ../.."
 alias lg="lazygit --git-dir $HOME/.local/share/yadm/repo.git/ -w $HOME"
 alias nvim-lazy="NVIM_APPNAME=LazyVim nvim"

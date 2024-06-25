@@ -43,7 +43,14 @@ if [ -z $(which zsh) ]; then
 	sudo apt-get install zsh -y &>/dev/null
 	chsh -s $(which zsh)
 fi
-sudo apt install libmagickwand-dev -y &>/dev/null
+if [ -z $(which fdfind) ]; then
+	echo "install btop"
+	sudo apt-get install fd-find -y &>/dev/null
+fi
+if [ -z $(which cmake) ]; then
+	echo "install btop"
+	sudo apt-get install cmake -y &>/dev/null
+fi
 
 if [ -z $(which btop) ]; then
 	echo "install btop"
