@@ -9,26 +9,6 @@ addpath() {
     fi
 }
 
-# Neovim配置选择器
-# export NVIM_DEFAULT_CONFIG="AstroNvim"
-function nvims() {
-    items=("default"  "LazyVim" "AstroNvim")
-    config=$(printf "%s\n" "${items[@]}" | fzf --prompt=" Neovim Config »" --height ~50% --layout=reverse --border --exit-0)
-    if [[ -z $config ]]; then
-        echo "Nothing selected"
-        return 0
-    elif [[ $config == "default" ]]; then
-        # 判断NVIM_DEFAULT_CONFIG是否存在
-        if [[ -z $NVIM_DEFAULT_CONFIG ]]; then
-            echo "未设置默认配置，请在 ~/.zshrc 中设置 NVIM_DEFAULT_CONFIG"
-            config='nvim'
-        else
-            config=$NVIM_DEFAULT_CONFIG
-        fi
-    fi
-    NVIM_APPNAME=$config nvim $@
-}
-
 # 代理设置函数
 function set_proxy() {
         export https_proxy="http://localhost:7890"
@@ -43,29 +23,26 @@ function unset_proxy() {
 # 环境配置
 ###########################################
 
-# pyenv配置
-if [  -d "$HOME/.pyenv" ]; then
-    export PYENV_ROOT="$HOME/.pyenv"
-    export PATH="$PYENV_ROOT/bin:$PATH"
-    python --version > /dev/null 2>&1
-    if [ $? -eq 0 ]; then
-    else
-        eval "$(pyenv init -)"
-        eval "$(pyenv virtualenv-init -)"
-    fi
-fi
+export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 
-# zsh缓存目录
-export ZSH_CACHE_DIR="$HOME/.cache/zsh"
 
-# powerlevel10k即时提示符配置
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-    source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
+
+###########################################
+# PATH配置
+###########################################
+
+addpath "$HOME/bin"
+addpath "/home/$USER/.local/share/bob/nvim-bin"
+addpath "$HOME/.local/bin"
+addpath "$HOME/rclone"
 
 ###########################################
 # Zsh基础设置
 ###########################################
+
+# zsh缓存目录
+export ZSH_CACHE_DIR="$HOME/.cache/zsh"
 
 # 历史记录去重
 setopt HIST_IGNORE_ALL_DUPS
@@ -73,11 +50,8 @@ setopt HIST_IGNORE_ALL_DUPS
 # 从WORDCHARS中移除路径分隔符
 WORDCHARS=${WORDCHARS//[\/]}
 
-# 自动建议手动重绑定
-ZSH_AUTOSUGGEST_MANUAL_REBIND=1
-
 # 语法高亮设置
-ZSH_HIGHLIGHT_HIGHLIGHTERS=(brackets pattern cursor)
+ZSH_HIGHLIGHT_HIGHLIGHTERS=(brackets pattern cursor main)
 
 # 添加函数路径
 fpath+=~/.zfunc
@@ -108,12 +82,12 @@ source ${ZIM_HOME}/init.zsh
 # 开发工具配置
 ###########################################
 
-# nvm配置
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+# 启动 starship
+eval "$(starship init zsh)"
 
-# powerlevel10k主题配置
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+export _ZO_DATA_DIR=$HOME/z
+# 启动 zoxide
+eval "$(zoxide init zsh)"
 
 ###########################################
 # 别名设置
@@ -126,7 +100,6 @@ alias top=btop
 alias v=nvim
 alias vi=nvim
 alias vim=nvim
-alias ls=exa
 alias ll="exa -l"
 alias ...="cd ../.."
 alias lg="lazygit --git-dir $HOME/.local/share/yadm/repo.git/ -w $HOME"
@@ -140,14 +113,6 @@ alias nvim-astro="NVIM_APPNAME=AstroNvim nvim"
 # FZF配置
 export FZF_DEFAULT_OPTS="--bind=tab:down --bind='shift-tab:up' --bind='ctrl-a:toggle-all' --cycle"
 
-###########################################
-# PATH配置
-###########################################
-
-addpath "$HOME/bin"
-addpath "/home/$USER/.local/share/bob/nvim-bin"
-addpath "$HOME/.local/bin"
-addpath "$HOME/rclone"
 
 ###########################################
 # WSL特定配置
@@ -190,6 +155,7 @@ if is_wsl ; then
     export Documents="/mnt/d/sharezhou/Documents"
     export C="/mnt/c"
     export D="/mnt/d"
+    export EDITOR="nvim"
 
     # 启动时检查clash
     clash
@@ -210,3 +176,16 @@ export CRASHDIR="/etc/ShellCrash"
 ZVM_READKEY_ENGINE=$ZVM_READKEY
 
 source ~/encrypt.sh
+source "$HOME/.rye/env"
+alias open="wslview"
+export EDITOR="nvim"
+
+# yazi Warp shell
+function yy() {
+	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+	yazi "$@" --cwd-file="$tmp"
+	if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+		builtin cd -- "$cwd"
+	fi
+	rm -f -- "$tmp"
+}

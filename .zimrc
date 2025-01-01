@@ -1,20 +1,18 @@
 zmodule git
-zmodule duration-info
+zmodule exa
+zmodule input
+zmodule run-help
+zmodule environment
+zmodule magic-enter
 zmodule zsh-users/zsh-completions
 zmodule completion
 zmodule zsh-users/zsh-autosuggestions
 zmodule zsh-users/zsh-syntax-highlighting
 zmodule zsh-users/zsh-history-substring-search
 
-
-zmodule wookayin/fzf-fasd
-zmodule git-info
-zmodule prompt-pwd
 zmodule magicmace
 zmodule hlissner/zsh-autopair
-zmodule agkozak/zsh-z
 zmodule Aloxaf/fzf-tab
-
-zmodule romkatv/powerlevel10k
-
 zmodule ohmyzsh/ohmyzsh --root plugins/sudo
+
+# vim: ft=zsh
