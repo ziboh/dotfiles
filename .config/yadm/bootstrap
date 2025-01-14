@@ -8,7 +8,7 @@ ZSH_COMPLETE="$HOME/.zsh-complete"
 
 # Helper functions
 install_package() {
-    if command -v "$1" &> /dev/null; then
+    if command -v "$1" &>/dev/null; then
         echo "Package $1 is already installed"
     else
         echo "Installing $1..."
@@ -26,7 +26,7 @@ install_from_url() {
     rm -rf "$name.tar.gz"
     echo "$name has been installed."
 }
- 
+
 # Setup directories
 mkdir -p "$HOME/.zsh-complete" "$HOME/.cache/zsh" "$HOME/bin"
 
@@ -35,10 +35,26 @@ ZSH_CACHE_DIR="$HOME/.cache/zsh"
 ZSH_COMPLETE="$HOME/.zsh-complete"
 
 # Decrypt yadm
-decrypt=false
-for i in {1..3}; do
-    yadm decrypt && decrypt=true && break || sleep 1
-done
+# 如果设置了 SKIP_YADM_DECRYPT 环境变量且值为 true 或 1，则跳过解密
+if [[ "${SKIP_YADM_DECRYPT,,}" == "true" || "${SKIP_YADM_DECRYPT}" == "1" ]]; then
+    echo "SKIP_YADM_DECRYPT is set, skipping yadm decryption."
+else
+    # 尝试解密 yadm，最多重试 3 次
+    decrypt=false
+    for i in {1..3}; do
+        if yadm decrypt; then
+            decrypt=true
+            break
+        else
+            sleep 1
+        fi
+    done
+
+    # 如果解密失败，输出提示信息
+    if [[ "$decrypt" == "false" ]]; then
+        echo "Failed to decrypt yadm after 3 attempts."
+    fi
+fi
 
 # Update yadm submodules
 yadm submodule update --recursive --init
@@ -51,11 +67,27 @@ install_package unzip unzip
 install_package git git
 install_package curl curl
 install_package wget wget
-install_package fdfind fd-find
 install_package cmake cmake
 install_package btop btop
 install_package gcc build-essential
-install_package zsh zsh && chsh -s "$(which zsh)"
+
+# 定义要检查的包名
+PACKAGE_NAME="librime-dev"
+
+# 检查包是否已安装
+if dpkg -s $PACKAGE_NAME >/dev/null 2>&1; then
+    echo "$PACKAGE_NAME 已经安装。"
+else
+    echo "$PACKAGE_NAME 未安装，正在安装..."
+    sudo apt-get update
+    sudo apt-get install -y $PACKAGE_NAME
+    if dpkg -s $PACKAGE_NAME >/dev/null 2>&1; then
+        echo "$PACKAGE_NAME 安装成功。"
+    else
+        echo "$PACKAGE_NAME 安装失败。"
+        exit 1
+    fi
+fi
 
 # Install Node.js and Neovim
 if [ ! -s "$NVM_DIR/nvm.sh" ]; then
@@ -69,32 +101,40 @@ if [ ! -s "$NVM_DIR/nvm.sh" ]; then
 fi
 
 # Check if rye is installed
-if ! command -v rye &> /dev/null
-then
+if ! command -v rye &>/dev/null; then
     echo "rye command not found. Installing rye..."
     # Install rye using the provided command
     curl -sSf https://rye.astral.sh/get | RYE_INSTALL_OPTION="--yes" bash
-    rye self completion -s zsh > $HOME/.zfunc/_rye
+    rye self completion -s zsh >$HOME/.zfunc/_rye
 else
     echo "rye is already installed."
 fi
 
 # Install fzf
-if ! command -v fzf &> /dev/null; then
+if ! command -v fzf &>/dev/null; then
     latest=$(curl -s https://api.github.com/repos/junegunn/fzf/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")')
     url="https://github.com/junegunn/fzf/releases/download/${latest}/fzf-${latest}-linux_amd64.tar.gz"
     install_from_url "$url" "$HOME/bin" fzf
 fi
 
+# Install fd
+if ! command -v fd &>/dev/null; then
+    latest=$(curl -s https://api.github.com/repos/sharkdp/fd/releases/latest | grep -oP '"tag_name": "v\K(.*)(?=")')
+    echo "Installing fd v${latest}..."
+    url="https://github.com/sharkdp/fd/releases/download/v${latest}/fd-musl_${latest}_amd64.deb"
+    echo "downloading $url"
+    curl -sSLo "fd.deb" "$url"
+    sudo dpkg -i fd.deb
+    rm fd.deb
+fi
+
 # Check if starship command exists
-if ! command -v starship &> /dev/null
-then
+if ! command -v starship &>/dev/null; then
     echo "Starship is not installed. Installing now..."
     # Execute the installation command
     curl -sS https://starship.rs/install.sh | sh -s -- -y
     # Check if installation was successful
-    if command -v starship &> /dev/null
-    then
+    if command -v starship &>/dev/null; then
         echo "Starship has been successfully installed."
     else
         echo "Failed to install Starship. Please check your internet connection or try manual installation."
@@ -103,16 +143,15 @@ else
     echo "Starship is already installed."
 fi
 
-
 # Install lazygit
-if ! command -v lazygit &> /dev/null; then
+if ! command -v lazygit &>/dev/null; then
     LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')
     url="https://github.com/jesseduffield/lazygit/releases/download/v${LAZYGIT_VERSION}/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
     install_from_url "$url" "$HOME/bin" lazygit
 fi
 
 # Install Rust and related tools
-if ! command -v cargo &> /dev/null; then
+if ! command -v cargo &>/dev/null; then
     curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y -q
     source "$HOME/.cargo/env"
     cargo install --git https://github.com/MordechaiHadad/bob.git
@@ -121,10 +160,21 @@ if ! command -v cargo &> /dev/null; then
     bob use "$NEOVIM_VERSION"
     echo "Installing ripgrep..."
     cargo install ripgrep >/dev/null
-    rg --generate complete-zsh > "$ZSH_COMPLETE/_rg"
+    rg --generate complete-zsh >"$ZSH_COMPLETE/_rg"
     echo "Installing exa..."
     cargo install exa >/dev/null
 fi
 
-# Start zsh
-# zsh
+install_package zsh zsh
+# 获取当前 shell 的名称
+current_shell=$(basename "$SHELL")
+
+# 判断当前 shell 是否是 Zsh
+if [ "$current_shell" != "zsh" ]; then
+    # 如果不是 Zsh，则切换到 Zsh
+    chsh -s "$(which zsh)"
+    echo "已切换到 Zsh。请重新登录以生效。"
+    zsh
+else
+    echo "当前已经是 Zsh，无需切换。"
+fi

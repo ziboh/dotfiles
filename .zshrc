@@ -8,7 +8,7 @@ addpath() {
         export PATH=$1:$PATH
     fi
 }
-
+ 
 # 代理设置函数
 function set_proxy() {
         export https_proxy="http://localhost:7890"
@@ -19,6 +19,69 @@ function unset_proxy() {
         export http_proxy=""
 }
 
+
+export NVIM_DEFAULT_CONFIG=""
+
+# 检查并安装配置的函数
+function check_and_install_config() {
+    local config_name=$1
+    local configs=("${@:2}")
+
+    for cfg in "${configs[@]}"; do
+        local name=${cfg%|*}
+        local repo=${cfg#*|}
+        
+        if [[ $config_name == $name && ! -d ~/.config/$name ]]; then
+            echo "$name config not found. Installing..."
+            # 如果 repo 不包含 "://"，则默认为 GitHub 仓库
+            if [[ $repo != *"://"* ]]; then
+                repo="https://github.com/$repo"
+            fi
+            git clone $repo ~/.config/$name
+            break
+        fi
+    done
+}
+
+function nvims() {
+    # 定义配置数组
+    readonly configs=(
+        "default"
+        "LazyVim|LazyVim/starter"
+        "AstroNvim|https://github.com/AstroNvim/template"
+        "NormalNvim|NormalNvim/NormalNvim"
+    )
+    
+    # 提取配置名称用于fzf选择
+    local items=()
+    for cfg in "${configs[@]}"; do
+        items+=("${cfg%|*}")
+    done
+
+    # 选择配置
+    local config=$(printf "%s\n" "${items[@]}" | fzf --prompt=" Neovim Config »" --height ~50% --layout=reverse --border --exit-0)
+    
+    if [[ -z $config ]]; then
+        echo "Nothing selected"
+        return 0
+    fi
+
+    # 处理default配置
+    if [[ $config == "default" ]]; then
+        if [[ -z $NVIM_DEFAULT_CONFIG ]]; then
+            config='nvim'
+        else
+            config=$NVIM_DEFAULT_CONFIG
+            # 检查并安装默认配置
+            check_and_install_config $config "${configs[@]}"
+        fi
+    else
+        # 检查并安装选择的配置
+        check_and_install_config $config "${configs[@]}"
+    fi
+
+    NVIM_APPNAME=$config nvim $@
+}
 ###########################################
 # 环境配置
 ###########################################
@@ -94,7 +157,6 @@ eval "$(zoxide init zsh)"
 ###########################################
 
 # 常用命令别名
-alias fd=fdfind
 alias crash="sudo crash"
 alias top=btop
 alias v=nvim
@@ -129,12 +191,24 @@ function is_wsl() {
 
 # WSL环境特定配置
 if is_wsl ; then
+    router_ip=$(ip route | grep default | awk '{print $3}')
     # Clash代理配置
     function clash() {
         powershell.exe Get-Process -Name "'clash-verge'" &>/dev/null
         if [ $? -eq 0 ]; then
-            export https_proxy="http://172.29.16.1:7890"
-            export http_proxy="http://172.29.16.1:7890"
+            export https_proxy="http://$router_ip:7890"
+            export http_proxy="http://$router_ip:7890"
+        else
+            export https_proxy=""
+            export http_proxy=""
+        fi
+    }
+
+    function v2ray() {
+        powershell.exe Get-Process -Name "'V2rayN'" &>/dev/null
+        if [ $? -eq 0 ]; then
+            export https_proxy="http://$router_ip:10809"
+            export http_proxy="http://$router_ip:10809"
         else
             export https_proxy=""
             export http_proxy=""
@@ -145,7 +219,7 @@ if is_wsl ; then
     alias poweroff="powershell.exe Stop-Computer"
     alias reboot="powershell.exe Restart-Computer"
     alias cleardns="powershell.exe clear-DnsClientCache"
-    alias code="/mnt/c/Portable\ Software/VSCode/bin/code"
+    alias code="/mnt/d/软件/VSCode/bin/code"
 
     # Windows路径映射
     export WIN_CONFIG="/mnt/d/sharezhou/Documents/git"
@@ -158,7 +232,7 @@ if is_wsl ; then
     export EDITOR="nvim"
 
     # 启动时检查clash
-    clash
+    v2ray
 
     # VSCode启动函数
     vscode(){
