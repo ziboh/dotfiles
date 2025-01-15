@@ -1,4 +1,0 @@
-[submodule "/zibo/.config/nvim"]
-	path = .config/nvim
-	url = git@github.com:ziboh/nvim_config.git
-	branch = main

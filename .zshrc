@@ -99,6 +99,7 @@ addpath "$HOME/bin"
 addpath "/home/$USER/.local/share/bob/nvim-bin"
 addpath "$HOME/.local/bin"
 addpath "$HOME/rclone"
+addpath "$HOME/.cargo/bin"
 
 ###########################################
 # Zsh基础设置
@@ -232,7 +233,8 @@ if is_wsl ; then
     export EDITOR="nvim"
 
     # 启动时检查clash
-    v2ray
+    # v2ray
+    clash
 
     # VSCode启动函数
     vscode(){

@@ -56,9 +56,6 @@ else
     fi
 fi
 
-# Update yadm submodules
-yadm submodule update --recursive --init
-
 # Extend sudo timeout
 sudo -v
 
@@ -68,6 +65,7 @@ install_package git git
 install_package curl curl
 install_package wget wget
 install_package cmake cmake
+install_package clang clang
 install_package btop btop
 install_package gcc build-essential
 
@@ -112,9 +110,17 @@ fi
 
 # Install fzf
 if ! command -v fzf &>/dev/null; then
-    latest=$(curl -s https://api.github.com/repos/junegunn/fzf/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")')
-    url="https://github.com/junegunn/fzf/releases/download/${latest}/fzf-${latest}-linux_amd64.tar.gz"
+    latest=$(curl -s https://api.github.com/repos/junegunn/fzf/releases/latest | grep -oP '"tag_name": "v\K(.*)(?=")')
+    url="https://github.com/junegunn/fzf/releases/download/v${latest}/fzf-${latest}-linux_amd64.tar.gz"
     install_from_url "$url" "$HOME/bin" fzf
+fi
+
+
+# Install zoxide
+if ! command -v zoxide &>/dev/null; then
+    latest=$(curl -s https://api.github.com/repos/ajeetdsouza/zoxide/releases/latest | grep -oP '"tag_name": "v\K(.*)(?=")')
+    url="https://github.com/ajeetdsouza/zoxide/releases/download/v${latest}/zoxide-${latest}-x86_64-unknown-linux-musl.tar.gz"
+    install_from_url "$url" "$HOME/bin" zoxide
 fi
 
 # Install fd
@@ -172,6 +178,7 @@ current_shell=$(basename "$SHELL")
 # 判断当前 shell 是否是 Zsh
 if [ "$current_shell" != "zsh" ]; then
     # 如果不是 Zsh，则切换到 Zsh
+    echo "准备切换到zsh，需要密码"
     chsh -s "$(which zsh)"
     echo "已切换到 Zsh。请重新登录以生效。"
     zsh
