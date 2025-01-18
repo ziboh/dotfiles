@@ -27,6 +27,14 @@ install_from_url() {
     echo "$name has been installed."
 }
 
+is_wsl() {
+    if [ -f /proc/sys/fs/binfmt_misc/WSLInterop ]; then
+        return 0
+    else
+        return 1
+    fi
+}
+
 # Setup directories
 mkdir -p "$HOME/.zsh-complete" "$HOME/.cache/zsh" "$HOME/bin"
 
@@ -103,7 +111,11 @@ if ! command -v rye &>/dev/null; then
     echo "rye command not found. Installing rye..."
     # Install rye using the provided command
     curl -sSf https://rye.astral.sh/get | RYE_INSTALL_OPTION="--yes" bash
+    source $HOME/.rye/env
     rye self completion -s zsh >$HOME/.zfunc/_rye
+    if is_wsl; then
+        rye tools install --git https://github.com/cpbotha/xdg-open-wsl.git xdg-open-wsl
+    fi
 else
     echo "rye is already installed."
 fi
@@ -192,7 +204,6 @@ current_shell=$(basename "$SHELL")
 # 判断当前 shell 是否是 Zsh
 if [ "$current_shell" != "zsh" ]; then
     # 如果不是 Zsh，则切换到 Zsh
-    echo "准备切换到zsh，需要密码"
     chsh -s "$(which zsh)"
     echo "已切换到 Zsh。请重新登录以生效。"
     zsh

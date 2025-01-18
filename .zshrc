@@ -192,13 +192,13 @@ function is_wsl() {
 
 # WSL环境特定配置
 if is_wsl ; then
-    router_ip=$(ip route | grep default | awk '{print $3}')
+    export WSL_ROUTER_IP=$(ip route | grep default | awk '{print $3}')
     # Clash代理配置
     function clash() {
         powershell.exe Get-Process -Name "'clash-verge'" &>/dev/null
         if [ $? -eq 0 ]; then
-            export https_proxy="http://$router_ip:7890"
-            export http_proxy="http://$router_ip:7890"
+            export https_proxy="http://$WSL_ROUTER_IP:7890"
+            export http_proxy="http://$WSL_ROUTER_IP:7890"
         else
             export https_proxy=""
             export http_proxy=""
@@ -208,8 +208,8 @@ if is_wsl ; then
     function v2ray() {
         powershell.exe Get-Process -Name "'V2rayN'" &>/dev/null
         if [ $? -eq 0 ]; then
-            export https_proxy="http://$router_ip:10809"
-            export http_proxy="http://$router_ip:10809"
+            export https_proxy="http://$WSL_ROUTER_IP:10809"
+            export http_proxy="http://$WSL_ROUTER_IP:10809"
         else
             export https_proxy=""
             export http_proxy=""
@@ -240,6 +240,9 @@ if is_wsl ; then
     vscode(){
         /mnt/d/软件/VSCode/Code.exe $*   &>/dev/null &
     }
+
+
+   export GIT_SSH=/mnt/c/Windows/System32/OpenSSH/ssh.exe
 fi
 
 # 检测是否为 WSL，如果不是则设置环境变量
