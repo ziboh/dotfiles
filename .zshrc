@@ -242,6 +242,11 @@ if is_wsl ; then
     }
 fi
 
+# 检测是否为 WSL，如果不是则设置环境变量
+if ! is_wsl; then
+    export RIME_LS_SYNC_DIR="$HOME/rclone/rime_ls"
+fi
+
 ###########################################
 # 其他配置
 ###########################################

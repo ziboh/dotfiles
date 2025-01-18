@@ -156,6 +156,27 @@ if ! command -v lazygit &>/dev/null; then
     install_from_url "$url" "$HOME/bin" lazygit
 fi
 
+if ! command -v zoxide &>/dev/null; then
+    ZOXIDE_VERSION=$(curl -s "https://api.github.com/repos/ajeetdsouza/zoxide/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')
+    url="https://github.com/ajeetdsouza/zoxide/releases/download/v${ZOXIDE_VERSION}/zoxide-${ZOXIDE_VERSION}-x86_64-unknown-linux-musl.tar.gz"
+    install_from_url "$url" "$HOME/bin" zoxide
+fi
+
+if ! command -v rime_ls &>/dev/null; then
+    ZOXIDE_VERSION=$(curl -s "https://api.github.com/repos/wlh320/rime-ls/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')
+    url="https://github.com/wlh320/rime-ls/releases/download/v${ZOXIDE_VERSION}/rime-ls-v${ZOXIDE_VERSION}-x86_64-unknown-linux-gnu.tar.gz"
+    install_from_url "$url" "$HOME/bin" rime_ls
+fi
+
+if ! command -v rclone &>/dev/null; then
+    latest=$(curl -s "https://api.github.com/repos/rclone/rclone/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')
+    url="https://github.com/rclone/rclone/releases/download/v${latest}/rclone-v${latest}-linux-amd64.deb"
+    echo "downloading $url"
+    curl -sSLo "rclone.deb" "$url"
+    sudo dpkg -i rclone.deb
+    rm fd.deb
+fi
+
 # Install Rust and related tools
 if ! command -v cargo &>/dev/null; then
     curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y -q
