@@ -236,12 +236,6 @@ if is_wsl ; then
     # v2ray
     clash
 
-    # VSCode启动函数
-    vscode(){
-        /mnt/d/软件/VSCode/Code.exe $*   &>/dev/null &
-    }
-
-
    export GIT_SSH=/mnt/c/Windows/System32/OpenSSH/ssh.exe
 fi
 

@@ -168,9 +168,19 @@ if ! command -v zoxide &>/dev/null; then
 fi
 
 if ! command -v rime_ls &>/dev/null; then
-    latest=$(curl -s "https://api.github.com/repos/wlh320/rime-ls/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')
+    latest=$(curl -s "https://api.github.com/repos/wlh320/rime-ls/releases/latest" | grep -oP '"tag_name": "v\K(.*)(?=")')
     url="https://github.com/wlh320/rime-ls/releases/download/v${latest}/rime-ls-v${latest}-x86_64-unknown-linux-gnu.tar.gz"
     install_from_url "$url" "$HOME/bin" rime_ls
+fi
+
+if ! command -v btm &>/dev/null; then
+    latest=$(curl -s https://api.github.com/repos/ClementTsang/bottom/releases/latest | grep -Po '"tag_name": "\K(.*)(?=")')
+    echo "Installing bottom v${latest}..."
+    url="https://github.com/ClementTsang/bottom/releases/download/${latest}/bottom_${latest}-1_amd64.deb"
+    echo "downloading $url"
+    curl -sSLo "bottom.deb" "$url"
+    sudo dpkg -i bottom.deb
+    rm bottom.deb
 fi
 
 if ! command -v rclone &>/dev/null; then
