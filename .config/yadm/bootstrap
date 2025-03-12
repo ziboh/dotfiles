@@ -210,6 +210,12 @@ if ! command -v nu &>/dev/null; then
     sudo ln -s ~/.cargo/bin/nu /usr/bin/nu
 fi
 
+if ! command -v topiary &>/dev/null; then
+    echo "Installing topiary..."
+    cargo install --git https://github.com/tweag/topiary topiary-cli
+    git clone https://github.com/blindFS/topiary-nushell $HOME/.config/topiary
+fi
+
 install_package zsh zsh
 # 获取当前 shell 的名称
 current_shell=$(basename "$SHELL")
