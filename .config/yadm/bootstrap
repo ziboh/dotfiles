@@ -207,6 +207,7 @@ fi
 if ! command -v nu &>/dev/null; then
     echo "Installing nu..."
     cargo install nu --locked
+    sudo ln -s ~/.cargo/bin/nu /usr/bin/nu
 fi
 
 install_package zsh zsh
@@ -215,8 +216,8 @@ current_shell=$(basename "$SHELL")
 
 # 判断当前 shell 是否是 Zsh
 if [ "$current_shell" != "nu" ]; then
-    # 如果不是 Zsh，则切换到 Zsh
-    chsh -s "$(which nu)"
+    sudo bash -c "echo /usr/bin/nu >> /etc/shells"
+    chsh -s /usr/bin/nu
     echo "已切换到 Nushell。请重新登录以生效。"
     zsh
 else
