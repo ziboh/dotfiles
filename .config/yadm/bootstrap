@@ -178,17 +178,33 @@ fi
 if ! command -v cargo &>/dev/null; then
     curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y -q
     source "$HOME/.cargo/env"
+fi
+
+if ! command -v bob &>/dev/null; then
+    echo "Installing bob..."
     cargo install --git https://github.com/MordechaiHadad/bob.git
     bob use "$NEOVIM_VERSION"
     bob install "$NEOVIM_VERSION"
     bob use "$NEOVIM_VERSION"
+fi
+
+if ! command -v rg &>/dev/null; then
     echo "Installing ripgrep..."
     cargo install ripgrep >/dev/null
+fi
+
+if ! command -v exa &>/dev/null; then
     echo "Installing exa..."
     cargo install exa >/dev/null
+fi
+
+if ! command -v fnm &>/dev/null; then
     echo "Installing fnm..."
-    cargo install fnm > /dev/null
+    cargo install fnm >/dev/null
     fnm install $NODE_VERSION
+fi
+
+if ! command -v nu &>/dev/null; then
     echo "Installing nu..."
     cargo install nu --locked
 fi
