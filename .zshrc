@@ -257,6 +257,7 @@ source ~/encrypt.sh
 source "$HOME/.rye/env"
 alias open="wslview"
 export EDITOR="nvim"
+eval "$(fnm env --use-on-cd --shell zsh)"
 
 # yazi Warp shell
 function yy() {

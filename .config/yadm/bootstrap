@@ -3,8 +3,6 @@
 # Constants
 NODE_VERSION=22.3
 NEOVIM_VERSION="stable"
-ZSH_CACHE_DIR="$HOME/.cache/zsh"
-ZSH_COMPLETE="$HOME/.zsh-complete"
 
 # Helper functions
 install_package() {
@@ -38,10 +36,6 @@ is_wsl() {
 # Setup directories
 mkdir -p "$HOME/.zsh-complete" "$HOME/.cache/zsh" "$HOME/bin"
 
-# Update directory variables with HOME
-ZSH_CACHE_DIR="$HOME/.cache/zsh"
-ZSH_COMPLETE="$HOME/.zsh-complete"
-
 # Decrypt yadm
 # 如果设置了 SKIP_YADM_DECRYPT 环境变量且值为 true 或 1，则跳过解密
 if [[ "${SKIP_YADM_DECRYPT,,}" == "true" || "${SKIP_YADM_DECRYPT}" == "1" ]]; then
@@ -49,7 +43,7 @@ if [[ "${SKIP_YADM_DECRYPT,,}" == "true" || "${SKIP_YADM_DECRYPT}" == "1" ]]; th
 else
     # 尝试解密 yadm，最多重试 3 次
     decrypt=false
-    for i in {1..3}; do
+    for _ in {1..3}; do
         if yadm decrypt; then
             decrypt=true
             break
@@ -95,24 +89,12 @@ else
     fi
 fi
 
-# Install Node.js and Neovim
-if [ ! -s "$NVM_DIR/nvm.sh" ]; then
-    export NVM_DIR="$HOME/.nvm"
-    git clone https://github.com/nvm-sh/nvm.git "$NVM_DIR"
-    cd "$NVM_DIR"
-    git checkout "$(git describe --abbrev=0 --tags --match "v[0-9]*" "$(git rev-list --tags --max-count=1)")"
-    . "$NVM_DIR/nvm.sh"
-    nvm install "$NODE_VERSION"
-    npm install -g neovim
-fi
-
 # Check if rye is installed
 if ! command -v rye &>/dev/null; then
     echo "rye command not found. Installing rye..."
     # Install rye using the provided command
     curl -sSf https://rye.astral.sh/get | RYE_INSTALL_OPTION="--yes" bash
     source $HOME/.rye/env
-    rye self completion -s zsh >$HOME/.zfunc/_rye
     if is_wsl; then
         rye tools install --git https://github.com/cpbotha/xdg-open-wsl.git xdg-open-wsl
     fi
@@ -202,9 +184,13 @@ if ! command -v cargo &>/dev/null; then
     bob use "$NEOVIM_VERSION"
     echo "Installing ripgrep..."
     cargo install ripgrep >/dev/null
-    rg --generate complete-zsh >"$ZSH_COMPLETE/_rg"
     echo "Installing exa..."
     cargo install exa >/dev/null
+    echo "Installing fnm..."
+    cargo install fnm > /dev/null
+    fnm install $NODE_VERSION
+    echo "Installing nu..."
+    cargo install nu --locked
 fi
 
 install_package zsh zsh
@@ -212,11 +198,11 @@ install_package zsh zsh
 current_shell=$(basename "$SHELL")
 
 # 判断当前 shell 是否是 Zsh
-if [ "$current_shell" != "zsh" ]; then
+if [ "$current_shell" != "nu" ]; then
     # 如果不是 Zsh，则切换到 Zsh
-    chsh -s "$(which zsh)"
-    echo "已切换到 Zsh。请重新登录以生效。"
+    chsh -s "$(which nu)"
+    echo "已切换到 Nushell。请重新登录以生效。"
     zsh
 else
-    echo "当前已经是 Zsh，无需切换。"
+    echo "当前已经是 Nushell，无需切换。"
 fi
