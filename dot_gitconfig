@@ -1,0 +1,5 @@
+[user]
+	name = zibo
+	email = sharezhou@outlook.com
+[core]
+	editor = nvim
