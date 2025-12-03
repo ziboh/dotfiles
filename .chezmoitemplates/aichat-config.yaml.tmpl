@@ -1,0 +1,30 @@
+# see https://github.com/sigoden/aichat/blob/main/config.example.yaml
+
+model: aiproxy:gemini-2.5-flash
+clients:
+- type: openai-compatible
+  name: aiproxy
+  api_base: https://aiproxy.sharezhou.eu.org/v1
+  api_key: {{ keepassxcAttribute "aichat" "Password" }}
+  models:
+  - name: Qwen/Qwen3-235B-A22B-Instruct-2507
+  - name: Qwen/Qwen3-Coder-480B-A35B-Instruct
+  - name: ZhipuAI/GLM-4.6
+  - name: claude-haiku-4-5
+  - name: deepseek-ai/DeepSeek-V3.2-Exp
+  - name: deepseek-reasoner
+  - name: deeseek-chat
+  - name: gemini-2.5-flash
+  - name: gemini-2.5-pro
+  - name: glm-4.5-air
+  - name: glm-4.5-flash
+  - name: glm-4.5v
+  - name: glm-4.6
+  - name: gpt-5
+  - name: gpt-5-mini
+  - name: gpt-5-nano
+  - name: kimi-k2-thinking
+  - name: text-embedding-v4
+    type: embedding
+    default_chunk_size: 1000
+    max_batch_size: 100
