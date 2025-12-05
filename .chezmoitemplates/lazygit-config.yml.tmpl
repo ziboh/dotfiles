@@ -50,7 +50,7 @@ customCommands:
 
                 Based on this format, generate appropriate commit messages. Respond with message only. DO NOT format the message in Markdown code blocks, DO NOT use backticks:
 
-                ```diff'# | append (git diff --no-ext-diff --staged) | append '```' | str join ''
+                ```diff'# | append (git --no-pager diff --no-ext-diff --staged) | append '```' | str join ''
           aichat $prompt | str replace --regex '(?s)<think>.*?</think>' '' | str trim | lines --skip-empty | first
                     "
     command: "git commit -m {{ "{{" }}.Form.CommitMessage | quote{{ "}}" }}"
