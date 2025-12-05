@@ -1,3 +1,9 @@
+promptToReturnFromSubprocess: false
+{{ if eq .chezmoi.os "windows" }}  
+git:
+  pagers:
+    - externalDiffCommand: "{{ .chezmoi.homeDir }}/Documents/Powershell/scripts/lazygit-pager.ps1"
+{{ end }}
 customCommands:
   - key: "<c-a>"
     context: "global"
