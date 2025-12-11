@@ -1,0 +1,108 @@
+{
+    "$help": "https://aka.ms/terminal-documentation",
+    "$schema": "https://aka.ms/terminal-profiles-schema",
+    "actions": [],
+    "alwaysShowTabs": true,
+    "copyFormatting": "none",
+    "copyOnSelect": false,
+    "defaultProfile": "{83934dab-d509-4904-90b9-f7225343448a}",
+    "keybindings": [
+        {
+            "id": "Terminal.ClosePane",
+            "keys": "alt+w"
+        },
+        {
+            "id": "Terminal.PasteFromClipboard",
+            "keys": "ctrl+shift+v"
+        },
+        {
+            "id": "Terminal.CloseWindow",
+            "keys": "ctrl+alt+w"
+        },
+        {
+            "id": "Terminal.DuplicatePaneAuto",
+            "keys": "alt+shift+d"
+        },
+        {
+            "id": null,
+            "keys": "ctrl+shift+3"
+        },
+        {
+            "id": "Terminal.PrevTab",
+            "keys": "alt+["
+        },
+        {
+            "id": "Terminal.NextTab",
+            "keys": "alt+]"
+        },
+        {
+            "id": null,
+            "keys": "ctrl+shift+2"
+        },
+        {
+            "id": "Terminal.OpenNewTabProfile0",
+            "keys": "alt+1"
+        },
+        {
+            "id": "Terminal.OpenNewTabProfile1",
+            "keys": "alt+2"
+        },
+        {
+            "id": "Terminal.OpenNewTabProfile2",
+            "keys": "alt+3"
+        },
+        {
+            "id": null,
+            "keys": "ctrl+shift+1"
+        },
+        {
+            "id": "Terminal.CopyToClipboard",
+            "keys": "ctrl+shift+c"
+        }
+    ],
+    "newTabMenu": [
+        {
+            "type": "remainingProfiles"
+        }
+    ],
+    "profiles": {
+        "defaults": {
+            "antialiasingMode": "cleartype",
+            "closeOnExit": "automatic",
+            "colorScheme": "One Half Dark",
+            "cursorShape": "filledBox",
+            "font": {
+                "face": "Maple Mono NF CN",
+                "size": 14
+            }
+        },
+        "list": [
+            {
+                "commandline": "nu.exe",
+                "guid": "{83934dab-d509-4904-90b9-f7225343448a}",
+                "hidden": false,
+                "icon": "D:\\onedrive\\\u56fe\u7247\\ico\\103776935-caa00a80-4ff5-11eb-8fe8-034299c90859.png",
+                "name": "Nushell",
+                "startingDirectory": "C:\\Users\\zibo"
+            },
+            {
+                "commandline": "%SystemRoot%\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+                "guid": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
+                "hidden": false,
+                "name": "Windows PowerShell"
+            },
+            {
+                "commandline": "%SystemRoot%\\System32\\cmd.exe",
+                "guid": "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}",
+                "hidden": false,
+                "name": "\u547d\u4ee4\u63d0\u793a\u7b26"
+            }
+        ]
+    },
+    "schemes": [],
+    "showTabsInTitlebar": true,
+    "tabWidthMode": "equal",
+    "theme": "system",
+    "themes": [],
+    "useAcrylicInTabRow": true
+}
