@@ -23,6 +23,9 @@ SetTitleMatchMode "RegEx"  ; 启用 RegEx 模式
 	Return
 }
 
+#HotIf WinActive("terminal$")
+^.::^!F7
+
 #HotIf WinActive("neovim$")
 ^[::^!F10
 ^Space::^!F12

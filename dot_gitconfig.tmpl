@@ -5,7 +5,11 @@
 [core]
 	editor = nvim
     pager = delta
+    {{- if eq .chezmoi.os "windows" }}  
     autocrlf = true
+    {{- else if eq .chezmoi.os "linux" }}  
+    autocrlf = input  
+    {{- end }}  
 
 [pull]
 	rebase = true
