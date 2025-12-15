@@ -52,6 +52,14 @@
             "keys": "alt+3"
         },
         {
+            "id": "Terminal.OpenNewTabProfile3",
+            "keys": "alt+4"
+        },
+        {
+            "id": "Terminal.OpenNewTabProfile4",
+            "keys": "alt+5"
+        },
+        {
             "id": null,
             "keys": "ctrl+shift+1"
         },
