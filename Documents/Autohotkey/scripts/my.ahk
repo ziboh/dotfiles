@@ -94,3 +94,15 @@ $^Space:: {
 		send("^{Space}")
 	}
 }
+
+$Shift:: {
+	if WinActive("neovim$") {
+		send("^{Space}")
+	} else {
+		Send("{Enter}")
+		send("^{Space}")
+	}
+}
+
+#HotIf not HasATLWindows() and not WinActive("neovim$")
+$Shift:: send("^{Space}")

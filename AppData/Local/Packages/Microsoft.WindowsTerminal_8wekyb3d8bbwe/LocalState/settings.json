@@ -86,6 +86,22 @@
                 "startingDirectory": "C:\\Users\\zibo"
             },
             {
+                "commandline": "ssh ubuntu@a.sharezhou.eu.org",
+                "guid": "{3b7158f8-f248-4aa7-92ae-e5b338fca8fd}",
+                "hidden": false,
+                "icon": "D:\\onedrive\\图片\\ico\\oracle.ico",
+                "name": "Oracle A",
+                "startingDirectory": "C:\\Users\\zibo"
+            },
+            {
+                "commandline": "ssh ubuntu@b.sharezhou.eu.org",
+                "guid": "{1dac2737-2c1c-4790-a823-da99f3aa88d4}",
+                "hidden": false,
+                "icon": "D:\\onedrive\\图片\\ico\\oracle.ico",
+                "name": "Oracle B",
+                "startingDirectory": "C:\\Users\\zibo"
+            },
+            {
                 "commandline": "%SystemRoot%\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
                 "guid": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
                 "hidden": false,
