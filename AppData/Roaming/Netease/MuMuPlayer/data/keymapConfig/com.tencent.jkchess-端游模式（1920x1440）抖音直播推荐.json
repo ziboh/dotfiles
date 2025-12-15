@@ -1,0 +1,630 @@
+{
+    "info": {
+        "background_color": "00000066",
+        "is_joystick": false,
+        "response_cursor_point_icon": false,
+        "transparent_ESC": false,
+        "transparent_keyboard": true,
+        "transparent_mouse": "Mouse_No_Transparent",
+        "transparent_mouse_windows_raw_move_period": 0,
+        "transparent_mouse_windows_raw_move_sensitivity": 1,
+        "transparent_wheel": false,
+        "uuid": "865700ee-fb32-42ec-ae14-0c56849bb2b5",
+        "visibility": true
+    },
+    "keymaps": [
+        {
+            "editor_icon_scale": 1,
+            "icon": {
+                "background_color": "00000066",
+                "description": "标记鼠标当前位置",
+                "radius_correction": 1,
+                "rel_position": {
+                    "rel_x": 0.033225419052960135,
+                    "rel_y": 0.9484328214044241
+                },
+                "visibility": true
+            },
+            "key": {
+                "device": "keyboard",
+                "scan_code": 29,
+                "text": "Ctrl",
+                "virtual_key": 17
+            },
+            "press_actions": [
+                "curve_first_point_sleep_time:20",
+                "curve_last_point_sleep_time:until_release_cmd",
+                "default_sleep_time:200",
+                "curve_rel:(0.028798,0.932911);mouse"
+            ],
+            "rel_work_position": {
+                "rel_x": 0.033225419052960135,
+                "rel_y": 0.9484328214044241
+            },
+            "release_actions": [
+                "release_all"
+            ],
+            "type": "Macro"
+        },
+        {
+            "editor_icon_scale": 1,
+            "icon": {
+                "background_color": "00000066",
+                "description": "",
+                "radius_correction": 1,
+                "rel_position": {
+                    "rel_x": 0.9675979605320776,
+                    "rel_y": 0.39361318035219905
+                },
+                "visibility": true
+            },
+            "key": {
+                "device": "keyboard",
+                "scan_code": 6,
+                "text": "5",
+                "virtual_key": 53
+            },
+            "rel_work_position": {
+                "rel_x": 0.9675979605320776,
+                "rel_y": 0.39361318035219905
+            },
+            "type": "Click"
+        },
+        {
+            "editor_icon_scale": 1,
+            "icon": {
+                "background_color": "00000066",
+                "description": "",
+                "radius_correction": 1,
+                "rel_position": {
+                    "rel_x": 0.9677674454206219,
+                    "rel_y": 0.6195530592149524
+                },
+                "visibility": true
+            },
+            "key": {
+                "device": "keyboard",
+                "scan_code": 9,
+                "text": "8",
+                "virtual_key": 56
+            },
+            "rel_work_position": {
+                "rel_x": 0.9677674454206219,
+                "rel_y": 0.6195530592149524
+            },
+            "type": "Click"
+        },
+        {
+            "editor_icon_scale": 1,
+            "icon": {
+                "background_color": "00000066",
+                "description": "",
+                "radius_correction": 1,
+                "rel_position": {
+                    "rel_x": 0.9670011600094292,
+                    "rel_y": 0.5382349679318601
+                },
+                "visibility": true
+            },
+            "key": {
+                "device": "keyboard",
+                "scan_code": 8,
+                "text": "7",
+                "virtual_key": 55
+            },
+            "rel_work_position": {
+                "rel_x": 0.9670011600094292,
+                "rel_y": 0.5382349679318601
+            },
+            "type": "Click"
+        },
+        {
+            "editor_icon_scale": 1,
+            "icon": {
+                "background_color": "00000066",
+                "description": "",
+                "radius_correction": 1,
+                "rel_position": {
+                    "rel_x": 0.966083882606756,
+                    "rel_y": 0.4648620488952496
+                },
+                "visibility": true
+            },
+            "key": {
+                "device": "keyboard",
+                "scan_code": 7,
+                "text": "6",
+                "virtual_key": 54
+            },
+            "rel_work_position": {
+                "rel_x": 0.966083882606756,
+                "rel_y": 0.4648620488952496
+            },
+            "type": "Click"
+        },
+        {
+            "editor_icon_scale": 1,
+            "icon": {
+                "background_color": "00000066",
+                "description": "",
+                "radius_correction": 1,
+                "rel_position": {
+                    "rel_x": 0.9685349023407173,
+                    "rel_y": 0.2496754043684431
+                },
+                "visibility": true
+            },
+            "key": {
+                "device": "keyboard",
+                "scan_code": 4,
+                "text": "3",
+                "virtual_key": 51
+            },
+            "rel_work_position": {
+                "rel_x": 0.9685349023407173,
+                "rel_y": 0.2496754043684431
+            },
+            "type": "Click"
+        },
+        {
+            "editor_icon_scale": 1,
+            "icon": {
+                "background_color": "00000066",
+                "description": "",
+                "radius_correction": 1,
+                "rel_position": {
+                    "rel_x": 0.9685354880951698,
+                    "rel_y": 0.18022525676937434
+                },
+                "visibility": true
+            },
+            "key": {
+                "device": "keyboard",
+                "scan_code": 3,
+                "text": "2",
+                "virtual_key": 50
+            },
+            "rel_work_position": {
+                "rel_x": 0.9685354880951698,
+                "rel_y": 0.18022525676937434
+            },
+            "type": "Click"
+        },
+        {
+            "editor_icon_scale": 1,
+            "icon": {
+                "background_color": "00000066",
+                "description": "",
+                "radius_correction": 1,
+                "rel_position": {
+                    "rel_x": 0.9682232809723955,
+                    "rel_y": 0.09901844070961718
+                },
+                "visibility": true
+            },
+            "key": {
+                "device": "keyboard",
+                "scan_code": 2,
+                "text": "1",
+                "virtual_key": 49
+            },
+            "rel_work_position": {
+                "rel_x": 0.9682232809723955,
+                "rel_y": 0.09901844070961718
+            },
+            "type": "Click"
+        },
+        {
+            "editor_icon_scale": 1,
+            "icon": {
+                "background_color": "00000066",
+                "description": "快捷对位",
+                "radius_correction": 1,
+                "rel_position": {
+                    "rel_x": 0.9721667487783923,
+                    "rel_y": 0.9305565098379774
+                },
+                "visibility": true
+            },
+            "key": {
+                "device": "keyboard",
+                "scan_code": 57,
+                "text": "Space",
+                "virtual_key": 32
+            },
+            "press_actions": [
+                "click_rel:(0.957154,0.941837)",
+                "sleep:500",
+                "mouse_release:1"
+            ],
+            "rel_work_position": {
+                "rel_x": 0.9721667487783923,
+                "rel_y": 0.9305565098379774
+            },
+            "release_actions": [
+            ],
+            "type": "Macro"
+        },
+        {
+            "editor_icon_scale": 1,
+            "icon": {
+                "background_color": "00000066",
+                "description": "打开聊天框",
+                "radius_correction": 1,
+                "rel_position": {
+                    "rel_x": 0.03461456217337879,
+                    "rel_y": 0.8677358313218098
+                },
+                "visibility": true
+            },
+            "key": {
+                "device": "keyboard",
+                "scan_code": 28,
+                "text": "Enter",
+                "virtual_key": 13
+            },
+            "rel_work_position": {
+                "rel_x": 0.03461456217337879,
+                "rel_y": 0.8677358313218098
+            },
+            "type": "Click"
+        },
+        {
+            "editor_icon_scale": 1,
+            "icon": {
+                "background_color": "00000066",
+                "description": "打开表情栏",
+                "radius_correction": 1,
+                "rel_position": {
+                    "rel_x": 0.03586790344678589,
+                    "rel_y": 0.7929241089292356
+                },
+                "visibility": true
+            },
+            "key": {
+                "device": "keyboard",
+                "scan_code": 20,
+                "text": "T",
+                "virtual_key": 84
+            },
+            "rel_work_position": {
+                "rel_x": 0.03586790344678589,
+                "rel_y": 0.7929241089292356
+            },
+            "type": "Click"
+        },
+        {
+            "editor_icon_scale": 1,
+            "icon": {
+                "background_color": "00000066",
+                "description": "",
+                "radius_correction": 1,
+                "rel_position": {
+                    "rel_x": 0.898661066369367,
+                    "rel_y": 0.6953369002847088
+                },
+                "visibility": true
+            },
+            "key": {
+                "device": "keyboard",
+                "scan_code": 16,
+                "text": "Q",
+                "virtual_key": 81
+            },
+            "rel_work_position": {
+                "rel_x": 0.898661066369367,
+                "rel_y": 0.6953369002847088
+            },
+            "type": "Click"
+        },
+        {
+            "editor_icon_scale": 1,
+            "icon": {
+                "background_color": "00000066",
+                "description": "刷新商店",
+                "radius_correction": 1,
+                "rel_position": {
+                    "rel_x": 0.13488630260258577,
+                    "rel_y": 0.9502947306637826
+                },
+                "visibility": true
+            },
+            "key": {
+                "device": "keyboard",
+                "scan_code": 32,
+                "text": "D",
+                "virtual_key": 68
+            },
+            "rel_work_position": {
+                "rel_x": 0.13488630260258577,
+                "rel_y": 0.9502947306637826
+            },
+            "type": "Click"
+        },
+        {
+            "editor_icon_scale": 1,
+            "icon": {
+                "background_color": "00000066",
+                "description": "购买经验",
+                "radius_correction": 1,
+                "rel_position": {
+                    "rel_x": 0.13201862242539564,
+                    "rel_y": 0.8678343857549553
+                },
+                "visibility": true
+            },
+            "key": {
+                "device": "keyboard",
+                "scan_code": 33,
+                "text": "F",
+                "virtual_key": 70
+            },
+            "rel_work_position": {
+                "rel_x": 0.13201862242539564,
+                "rel_y": 0.8678343857549553
+            },
+            "type": "Click"
+        },
+        {
+            "editor_icon_scale": 1,
+            "icon": {
+                "background_color": "00000066",
+                "description": "锁定商店",
+                "radius_correction": 1,
+                "rel_position": {
+                    "rel_x": 0.9090277468636946,
+                    "rel_y": 0.7922191289343076
+                },
+                "visibility": true
+            },
+            "key": {
+                "device": "keyboard",
+                "scan_code": 19,
+                "text": "R",
+                "virtual_key": 82
+            },
+            "rel_work_position": {
+                "rel_x": 0.9090277468636946,
+                "rel_y": 0.7922191289343076
+            },
+            "type": "Click"
+        },
+        {
+            "editor_icon_scale": 1,
+            "icon": {
+                "background_color": "00000066",
+                "description": "长按查看对手棋盘",
+                "radius_correction": 1,
+                "rel_position": {
+                    "rel_x": 0.7125002190457661,
+                    "rel_y": 0.4818716435618835
+                },
+                "visibility": true
+            },
+            "key": {
+                "device": "keyboard",
+                "scan_code": 15,
+                "text": "Tab",
+                "virtual_key": 9
+            },
+            "press_actions": [
+                "click_rel:(0.963190,0.102941)",
+                "sleep:1500",
+                "click_rel:(0.967791,0.178571)",
+                "sleep:1500",
+                "click_rel:(0.971626,0.247899)",
+                "sleep:1500",
+                "click_rel:(0.965491,0.317227)",
+                "sleep:1500",
+                "click_rel:(0.968558,0.398109)",
+                "sleep:1500",
+                "click_rel:(0.960890,0.468487)",
+                "sleep:1500",
+                "click_rel:(0.964724,0.536765)",
+                "sleep:1500",
+                "click_rel:(0.965491,0.618697)",
+                "sleep:1500"
+            ],
+            "rel_work_position": {
+                "rel_x": 0.7125002190457661,
+                "rel_y": 0.4818716435618835
+            },
+            "release_actions": [
+                "release_all"
+            ],
+            "type": "Macro"
+        },
+        {
+            "editor_icon_scale": 1,
+            "icon": {
+                "background_color": "00000066",
+                "description": "",
+                "radius_correction": 1,
+                "rel_position": {
+                    "rel_x": 0.9561414481226351,
+                    "rel_y": 0.6960606156412654
+                },
+                "visibility": true
+            },
+            "key": {
+                "device": "keyboard",
+                "scan_code": 17,
+                "text": "W",
+                "virtual_key": 87
+            },
+            "rel_work_position": {
+                "rel_x": 0.9561414481226351,
+                "rel_y": 0.6960606156412654
+            },
+            "type": "Click"
+        },
+        {
+            "editor_icon_scale": 1,
+            "icon": {
+                "background_color": "00000066",
+                "description": "长按跟随鼠标行走",
+                "radius_correction": 1,
+                "rel_position": {
+                    "rel_x": 0.7159016270019497,
+                    "rel_y": 0.6536022167487684
+                },
+                "visibility": true
+            },
+            "key": {
+                "device": "keyboard",
+                "scan_code": 30,
+                "text": "A",
+                "virtual_key": 65
+            },
+            "press_actions": [
+                "mouse_press:1"
+            ],
+            "rel_work_position": {
+                "rel_x": 0.7159016270019497,
+                "rel_y": 0.6536022167487684
+            },
+            "release_actions": [
+                "mouse_release:1"
+            ],
+            "type": "Macro"
+        },
+        {
+            "editor_icon_scale": 1,
+            "icon": {
+                "background_color": "00000066",
+                "description": "",
+                "radius_correction": 1,
+                "rel_position": {
+                    "rel_x": 0.9678987730061354,
+                    "rel_y": 0.322264239028945
+                },
+                "visibility": true
+            },
+            "key": {
+                "device": "keyboard",
+                "scan_code": 5,
+                "text": "4",
+                "virtual_key": 52
+            },
+            "rel_work_position": {
+                "rel_x": 0.9678987730061354,
+                "rel_y": 0.322264239028945
+            },
+            "type": "Click"
+        },
+        {
+            "editor_icon_scale": 1,
+            "icon": {
+                "background_color": "00000066",
+                "description": "",
+                "radius_correction": 1,
+                "rel_position": {
+                    "rel_x": 0.6015625,
+                    "rel_y": 0.4930555555555557
+                },
+                "visibility": false
+            },
+            "key": {
+                "device": "mouse",
+                "scan_code": 2,
+                "text": "right_mouse",
+                "virtual_key": 2
+            },
+            "press_actions": [
+                "mouse_press:1"
+            ],
+            "rel_work_position": {
+                "rel_x": 0.6015625,
+                "rel_y": 0.4930555555555557
+            },
+            "release_actions": [
+                "mouse_release:1"
+            ],
+            "type": "Macro"
+        },
+        {
+            "editor_icon_scale": 1,
+            "icon": {
+                "background_color": "00000066",
+                "description": "一键出售",
+                "radius_correction": 1,
+                "rel_position": {
+                    "rel_x": 0.8364968865174417,
+                    "rel_y": 0.6707002801120449
+                },
+                "visibility": true
+            },
+            "key": {
+                "device": "keyboard",
+                "scan_code": 18,
+                "text": "E",
+                "virtual_key": 69
+            },
+            "press_actions": [
+                "click_rel:mouse",
+                "sleep:50",
+                "click_rel:(0.865031,0.667017)"
+            ],
+            "rel_work_position": {
+                "rel_x": 0.8364968865174417,
+                "rel_y": 0.6707002801120449
+            },
+            "release_actions": [
+            ],
+            "type": "Macro"
+        },
+        {
+            "editor_icon_scale": 1,
+            "icon": {
+                "background_color": "00000066",
+                "description": "一键购买牌库棋子",
+                "radius_correction": 1,
+                "rel_position": {
+                    "rel_x": 0.6218944099378882,
+                    "rel_y": 0.7457446808510638
+                },
+                "visibility": true
+            },
+            "key": {
+                "device": "keyboard",
+                "scan_code": 22,
+                "text": "U",
+                "virtual_key": 85
+            },
+            "press_actions": [
+                "click_rel:(0.288820,0.910638);(0.428571,0.905319);(0.575311,0.903191);(0.735248,0.908511);(0.877329,0.901064)"
+            ],
+            "rel_work_position": {
+                "rel_x": 0.6218944099378882,
+                "rel_y": 0.7457446808510638
+            },
+            "release_actions": [
+            ],
+            "type": "Macro"
+        }
+    ],
+    "param": {
+        "transparent_joystick_policy": {
+            "protocol_version": 0
+        },
+        "transparent_wheel_policy": {
+            "protocol_version": 0,
+            "sensitivity": 1
+        },
+        "virtual_joystick": {
+            "enable": false
+        },
+        "wheel_policy": {
+            "small_point_move_first": false,
+            "wheel_step_distance": 0.01,
+            "zoom_degree": 45,
+            "zoom_first_interval": 16,
+            "zoom_last_idle": 80,
+            "zoom_margin": 10,
+            "zoom_operation_shortcut_mode": true,
+            "zoom_period": 14,
+            "zoom_step_distance": 0.00325,
+            "zoom_steps": 8
+        }
+    }
+}
