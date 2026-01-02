@@ -22,6 +22,17 @@ SetTitleMatchMode "RegEx"  ; 启用 RegEx 模式
 	}
 	Return
 }
+#HotIf not ProcessExist("pot.exe")
+!a:: {
+	Run "C:\Program Files\pot\pot.exe"
+	Sleep 1000  ; 等待1秒让程序启动
+	send "!a"
+}
+!q:: {
+	Run "C:\Program Files\pot\pot.exe"
+	Sleep 1000  ; 等待1秒让程序启动
+	send "!q"
+}
 
 #HotIf WinActive("terminal$")
 ^.::^!F7
@@ -103,6 +114,9 @@ $Shift:: {
 		send("^{Space}")
 	}
 }
+
+#HotIf WinActive("ahk_exe explorer.exe")
+!w:: Send "^w"
 
 #HotIf not HasATLWindows() and not WinActive("neovim$")
 $Shift:: send("^{Space}")

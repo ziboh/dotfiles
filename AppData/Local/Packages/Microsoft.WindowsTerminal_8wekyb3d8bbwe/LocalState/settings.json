@@ -110,10 +110,11 @@
                 "startingDirectory": "C:\\Users\\zibo"
             },
             {
-                "commandline": "%SystemRoot%\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+                "commandline": "pwsh --nologo",
                 "guid": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
+                "icon": "D:\\onedrive\\图片\\ico\\powershell.png",
                 "hidden": false,
-                "name": "Windows PowerShell"
+                "name": "Pwsh"
             },
             {
                 "commandline": "%SystemRoot%\\System32\\cmd.exe",
