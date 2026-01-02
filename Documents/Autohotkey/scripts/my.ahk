@@ -22,7 +22,7 @@ SetTitleMatchMode "RegEx"  ; 启用 RegEx 模式
 	}
 	Return
 }
-#HotIf not ProcessExist("pot.exe")
+#HotIf !ProcessExist("pot.exe")
 !a:: {
 	Run "C:\Program Files\pot\pot.exe"
 	Sleep 1000  ; 等待1秒让程序启动
@@ -32,6 +32,25 @@ SetTitleMatchMode "RegEx"  ; 启用 RegEx 模式
 	Run "C:\Program Files\pot\pot.exe"
 	Sleep 1000  ; 等待1秒让程序启动
 	send "!q"
+}
+
+#HotIf !ProcessExist("PixPin.exe")
+F1:: {
+	Run "D:\软件\PixPin\PixPin.exe"
+	WinWait "PixPin"  ; 等待窗口出现
+	Send "{F1}"
+}
+F2:: {
+	Run "D:\软件\PixPin\PixPin.exe"
+	WinWait "PixPin"  ; 等待窗口出现
+	Send "{F2}"
+}
+
+#HotIf !ProcessExist("Ztools.exe")
+!Space:: {
+	Run "D:\软件\ZTools\ZTools.exe"
+	WinWait "Ztools"  ; 等待窗口出现
+	Send "!{Space}"
 }
 
 #HotIf WinActive("terminal$")
