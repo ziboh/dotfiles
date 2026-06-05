@@ -19,10 +19,12 @@ SetTitleMatchMode "RegEx"  ; 启用 RegEx 模式
 	} Else {
 		; 如果程序不存在，运行KeePassXC
 		Run "keepassxc.exe"
+		Sleep 1000  ; 等待1秒让程序启动
+		Run "keepassxc.exe"
 	}
 	Return
 }
-#HotIf !ProcessExist("pot.exe")
+#HotIf not ProcessExist("pot.exe")
 !a:: {
 	Run "C:\Program Files\pot\pot.exe"
 	Sleep 1000  ; 等待1秒让程序启动
@@ -33,8 +35,15 @@ SetTitleMatchMode "RegEx"  ; 启用 RegEx 模式
 	Sleep 1000  ; 等待1秒让程序启动
 	send "!q"
 }
+#HotIf WinActive("金铲铲之战")
 
-#HotIf !ProcessExist("PixPin.exe")
+~Space:: {
+	SetTimer(() =>
+		Send("{LButton Up}")
+		, -500)
+}
+
+#HotIf not ProcessExist("PixPin.exe")
 F1:: {
 	Run "D:\软件\PixPin\PixPin.exe"
 	WinWait "PixPin"  ; 等待窗口出现
@@ -46,10 +55,11 @@ F2:: {
 	Send "{F2}"
 }
 
-#HotIf !ProcessExist("Ztools.exe")
+#HotIf not ProcessExist("Ztools.exe")
 !Space:: {
 	Run "D:\软件\ZTools\ZTools.exe"
-	WinWait "Ztools"  ; 等待窗口出现
+	; WinWait "Ztools"  ; 等待窗口出现
+	Sleep 2000  ; 等待1秒让程序启动
 	Send "!{Space}"
 }
 
@@ -139,3 +149,7 @@ $Shift:: {
 
 #HotIf not HasATLWindows() and not WinActive("neovim$")
 $Shift:: send("^{Space}")
+
+; 微信窗口 Ctrl+S 映射为 Alt+S
+#HotIf WinActive("ahk_exe Weixin.exe")
+^s:: Send "!s"
