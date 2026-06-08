@@ -11,15 +11,13 @@ SetTitleMatchMode "RegEx"  ; 启用 RegEx 模式
 ^!k:: {
 	; 检查是否存在KeePassXC程序
 	If ProcessExist("KeePassXC.exe") {
-		if WinExist("KeePassXC") {
+		if WinExist("ahk_exe KeePassXC.exe") {
 			WinMinimize
 		} else {
 			Run "keepassxc.exe"
 		}
 	} Else {
 		; 如果程序不存在，运行KeePassXC
-		Run "keepassxc.exe"
-		Sleep 1000  ; 等待1秒让程序启动
 		Run "keepassxc.exe"
 	}
 	Return
@@ -41,8 +39,8 @@ SetTitleMatchMode "RegEx"  ; 启用 RegEx 模式
 	Sleep 1000  ; 等待1秒让程序启动
 	send "!q"
 }
-#HotIf WinActive("金铲铲之战")
 
+#HotIf WinActive("金铲铲之战")
 ~Space:: {
 	SetTimer(() =>
 		Send("{LButton Up}")
