@@ -67,6 +67,10 @@ F2:: {
 	Send "!{Space}"
 }
 
+#HotIf MouseIsOver("ahk_class Shell_TrayWnd")
+WheelUp:: Send "{Volume_Up}"
+WheelDown:: Send "{Volume_Down}"
+
 #HotIf WinActive("terminal$")
 ^.::^!F7
 
@@ -81,10 +85,6 @@ F2:: {
 	Send "c"
 	return
 }
-
-#HotIf MouseIsOver("ahk_class Shell_TrayWnd")
-WheelUp:: Send "{Volume_Up}"
-WheelDown:: Send "{Volume_Down}"
 
 #HotIf WinExist("neovim-explorer$")
 ^Space::^!F12
@@ -148,11 +148,12 @@ $Shift:: {
 	}
 }
 
-#HotIf WinActive("ahk_exe explorer.exe")
-!w:: Send "^w"
-
+; 判断是否在使用正在小狼毫输入法输入,并且没有使用 neovim
 #HotIf not HasATLWindows() and not WinActive("neovim$")
 $Shift:: send("^{Space}")
+
+#HotIf WinActive("ahk_exe explorer.exe")
+!w:: Send "^w"
 
 ; 微信窗口 Ctrl+S 映射为 Alt+S
 #HotIf WinActive("ahk_exe Weixin.exe")
