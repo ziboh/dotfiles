@@ -24,6 +24,12 @@ SetTitleMatchMode "RegEx"  ; 启用 RegEx 模式
 	}
 	Return
 }
+
+#HotIf ProcessExist("tiez-app.exe")
+#v:: {
+	Send "^!{F8}"
+}
+
 #HotIf not ProcessExist("pot.exe")
 !a:: {
 	Run "C:\Program Files\pot\pot.exe"
