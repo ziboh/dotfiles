@@ -67,6 +67,11 @@ F2:: {
 	Send "!{Space}"
 }
 
+MouseIsOver(WinTitle) {
+	MouseGetPos , , &Win
+	return WinExist(WinTitle " ahk_id " Win)
+}
+
 #HotIf MouseIsOver("ahk_class Shell_TrayWnd")
 WheelUp:: Send "{Volume_Up}"
 WheelDown:: Send "{Volume_Down}"
@@ -106,13 +111,8 @@ $Space::
 	}
 }
 
-MouseIsOver(WinTitle) {
-	MouseGetPos , , &Win
-	return WinExist(WinTitle " ahk_id " Win)
-}
-
 ; Alt+W 关闭 Chrome 标签页
-#HotIf WinActive("ahk_class Chrome_WidgetWin_1")
+#HotIf WinActive("ahk_class Chrome_WidgetWin_1") or WinActive("ahk_exe firefox.exe")
 !w:: Send "^w"
 
 HasATLWindows() {
