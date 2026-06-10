@@ -112,7 +112,7 @@ $Space::
 }
 
 ; Alt+W 关闭 Chrome 标签页
-#HotIf WinActive("ahk_class Chrome_WidgetWin_1") or WinActive("ahk_exe firefox.exe")
+#HotIf WinActive("ahk_exe chrome.exe") or WinActive("ahk_exe firefox.exe")
 !w:: Send "^w"
 
 HasATLWindows() {
