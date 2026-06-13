@@ -25,7 +25,7 @@ SetTitleMatchMode "RegEx"  ; 启用 RegEx 模式
 
 #HotIf ProcessExist("tiez-app.exe")
 #v:: {
-	Send "^!{F8}"
+	Send "^!{F9}"
 }
 
 #HotIf not ProcessExist("pot.exe")
@@ -63,7 +63,7 @@ F2:: {
 !Space:: {
 	Run "D:\软件\ZTools\ZTools.exe"
 	; WinWait "Ztools"  ; 等待窗口出现
-	Sleep 2000  ; 等待1秒让程序启动
+	Sleep 1500  ; 等待1秒让程序启动
 	Send "!{Space}"
 }
 
