@@ -6,7 +6,7 @@
 	editor = nvim
     pager = delta
     {{- if eq .chezmoi.os "windows" }}  
-    autocrlf = true
+    autocrlf = false
     {{- else if eq .chezmoi.os "linux" }}  
     autocrlf = input  
     {{- end }}  

@@ -6,38 +6,39 @@
     "copyFormatting": "none",
     "copyOnSelect": false,
     "defaultProfile": "{83934dab-d509-4904-90b9-f7225343448a}",
-    "keybindings": [
-        {
-            "id": "Terminal.ClosePane",
-            "keys": "alt+w"
-        },
+    "keybindings": 
+    [
         {
             "id": "Terminal.PasteFromClipboard",
             "keys": "ctrl+shift+v"
+        },
+        {
+            "id": "Terminal.ClosePane",
+            "keys": "alt+w"
         },
         {
             "id": "Terminal.CloseWindow",
             "keys": "ctrl+alt+w"
         },
         {
-            "id": "Terminal.DuplicatePaneAuto",
-            "keys": "alt+shift+d"
-        },
-        {
             "id": null,
             "keys": "ctrl+shift+3"
+        },
+        {
+            "id": "Terminal.DuplicatePaneAuto",
+            "keys": "alt+shift+d"
         },
         {
             "id": "Terminal.PrevTab",
             "keys": "alt+["
         },
         {
-            "id": "Terminal.NextTab",
-            "keys": "alt+]"
-        },
-        {
             "id": null,
             "keys": "ctrl+shift+2"
+        },
+        {
+            "id": "Terminal.NextTab",
+            "keys": "alt+]"
         },
         {
             "id": "Terminal.OpenNewTabProfile0",
@@ -68,25 +69,34 @@
             "keys": "ctrl+shift+c"
         }
     ],
-    "newTabMenu": [
+    "newTabMenu": 
+    [
         {
             "type": "remainingProfiles"
         }
     ],
-    "profiles": {
-        "defaults": {
+    "profiles": 
+    {
+        "defaults": 
+        {
             "antialiasingMode": "cleartype",
             "closeOnExit": "automatic",
             "colorScheme": "One Half Dark",
             "cursorShape": "filledBox",
-            "font": {
+            "font": 
+            {
                 "face": "Maple Mono NF CN",
                 "size": 14
             }
         },
-        "list": [
+        "list": 
+        [
             {
                 "commandline": "nu.exe",
+                "font": 
+                {
+                    "face": "Maple Mono NF CN"
+                },
                 "guid": "{83934dab-d509-4904-90b9-f7225343448a}",
                 "hidden": false,
                 "icon": "D:\\onedrive\\\u56fe\u7247\\ico\\103776935-caa00a80-4ff5-11eb-8fe8-034299c90859.png",
@@ -94,10 +104,17 @@
                 "startingDirectory": "C:\\Users\\zibo"
             },
             {
+                "commandline": "pwsh --nologo",
+                "guid": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
+                "hidden": false,
+                "icon": "D:\\onedrive\\\u56fe\u7247\\ico\\powershell.png",
+                "name": "Pwsh"
+            },
+            {
                 "commandline": "ssh ubuntu@a.sharezhou.eu.org",
                 "guid": "{3b7158f8-f248-4aa7-92ae-e5b338fca8fd}",
                 "hidden": false,
-                "icon": "D:\\onedrive\\图片\\ico\\oracle.ico",
+                "icon": "D:\\onedrive\\\u56fe\u7247\\ico\\oracle.ico",
                 "name": "Oracle A",
                 "startingDirectory": "C:\\Users\\zibo"
             },
@@ -105,22 +122,33 @@
                 "commandline": "ssh ubuntu@b.sharezhou.eu.org",
                 "guid": "{1dac2737-2c1c-4790-a823-da99f3aa88d4}",
                 "hidden": false,
-                "icon": "D:\\onedrive\\图片\\ico\\oracle.ico",
+                "icon": "D:\\onedrive\\\u56fe\u7247\\ico\\oracle.ico",
                 "name": "Oracle B",
                 "startingDirectory": "C:\\Users\\zibo"
-            },
-            {
-                "commandline": "pwsh --nologo",
-                "guid": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
-                "icon": "D:\\onedrive\\图片\\ico\\powershell.png",
-                "hidden": false,
-                "name": "Pwsh"
             },
             {
                 "commandline": "%SystemRoot%\\System32\\cmd.exe",
                 "guid": "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}",
                 "hidden": false,
                 "name": "\u547d\u4ee4\u63d0\u793a\u7b26"
+            },
+            {
+                "guid": "{51855cb2-8cce-5362-8f54-464b92b32386}",
+                "hidden": false,
+                "name": "Ubuntu",
+                "source": "CanonicalGroupLimited.Ubuntu_79rhkp1fndgsc"
+            },
+            {
+                "guid": "{2c4de342-38b7-51cf-b940-2309a097f518}",
+                "hidden": true,
+                "name": "Ubuntu",
+                "source": "Windows.Terminal.Wsl"
+            },
+            {
+                "guid": "{961be7d8-b661-5d67-9980-c4e0fcb60428}",
+                "hidden": false,
+                "name": "Ubuntu",
+                "source": "Microsoft.WSL"
             }
         ]
     },

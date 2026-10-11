@@ -28,17 +28,17 @@ SetTitleMatchMode "RegEx"  ; 启用 RegEx 模式
 	Send "^!{F9}"
 }
 
-#HotIf not ProcessExist("pot.exe")
-!a:: {
-	Run "C:\Program Files\pot\pot.exe"
-	Sleep 1000  ; 等待1秒让程序启动
-	send "!a"
-}
-!q:: {
-	Run "C:\Program Files\pot\pot.exe"
-	Sleep 1000  ; 等待1秒让程序启动
-	send "!q"
-}
+; #HotIf not ProcessExist("pot.exe")
+; !a:: {
+; 	Run "C:\Program Files\pot\pot.exe"
+; 	Sleep 1000  ; 等待1秒让程序启动
+; 	send "!a"
+; }
+; !q:: {
+; 	Run "C:\Program Files\pot\pot.exe"
+; 	Sleep 1000  ; 等待1秒让程序启动
+; 	send "!q"
+; }
 
 #HotIf WinActive("金铲铲之战")
 ~Space:: {
@@ -47,7 +47,7 @@ SetTitleMatchMode "RegEx"  ; 启用 RegEx 模式
 		, -500)
 }
 
-#HotIf not ProcessExist("PixPin.exe")
+#HotIf not ProcessExist("PixPin.exe") and not ProcessExist("Weixin.exe")
 F1:: {
 	Run "D:\软件\PixPin\PixPin.exe"
 	WinWait "PixPin"  ; 等待窗口出现
@@ -59,13 +59,18 @@ F2:: {
 	Send "{F2}"
 }
 
-#HotIf not ProcessExist("Ztools.exe")
+; 测 pnpm dev 时改 true，日常改 false
+DevMode := false
+
+ZToolsPath := "D:\软件\ZTools\ZTools.exe"
+
+#HotIf !DevMode && !ProcessExist("ZTools.exe")
 !Space:: {
-	Run "D:\软件\ZTools\ZTools.exe"
-	; WinWait "Ztools"  ; 等待窗口出现
-	Sleep 1500  ; 等待1秒让程序启动
-	Send "!{Space}"
+	Run ZToolsPath
+	Sleep 500
+	Run ZToolsPath
 }
+#HotIf
 
 MouseIsOver(WinTitle) {
 	MouseGetPos , , &Win
