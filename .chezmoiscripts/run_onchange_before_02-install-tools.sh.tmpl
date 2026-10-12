@@ -1,0 +1,62 @@
+{{ if eq .chezmoi.os "linux" -}}
+#!/bin/sh
+set -eu
+# v1 2026-10-12 install WSL tools (bump version to force re-run)
+# apt: lazygit zoxide eza fzf bat
+# github: nu starship aichat
+
+MISSING=0
+for t in nu lazygit starship zoxide fzf eza bat aichat; do
+    command -v "$t" >/dev/null 2>&1 || MISSING=1
+done
+if [ "$MISSING" -eq 0 ]; then
+    exit 0
+fi
+
+SUDO=""
+if [ "$(id -u)" -ne 0 ]; then
+    SUDO=sudo
+fi
+BIN=/usr/local/bin
+
+$SUDO apt-get update -qq
+$SUDO env DEBIAN_FRONTEND=noninteractive apt-get install -y -qq \
+    lazygit zoxide eza fzf bat || true
+
+# Ubuntu's bat package installs the binary as batcat
+if ! command -v bat >/dev/null 2>&1 && command -v batcat >/dev/null 2>&1; then
+    $SUDO ln -sf "$(command -v batcat)" "$BIN/bat"
+fi
+
+# download latest GitHub release asset and install a single binary
+install_from_github() {
+    repo="$1"
+    pattern="$2"
+    bin="$3"
+    url=$(curl -fsSL "https://api.github.com/repos/$repo/releases/latest" |
+        grep -o "https://[^\"]*$pattern" | head -n 1)
+    if [ -z "$url" ]; then
+        return 1
+    fi
+    tmp=$(mktemp -d)
+    curl -fsSL "$url" | tar -xz -C "$tmp"
+    f=$(find "$tmp" -type f -name "$bin" | head -n 1)
+    if [ -n "$f" ]; then
+        $SUDO install -m 0755 "$f" "$BIN/$bin"
+    fi
+    rm -rf "$tmp"
+}
+
+if ! command -v nu >/dev/null 2>&1; then
+    install_from_github nushell/nushell "x86_64-unknown-linux-gnu.tar.gz" nu || true
+fi
+
+if ! command -v starship >/dev/null 2>&1; then
+    curl -fsSL https://starship.rs/install.sh |
+        $SUDO sh -s -- --yes --bin-dir "$BIN" || true
+fi
+
+if ! command -v aichat >/dev/null 2>&1; then
+    install_from_github sigoden/aichat "x86_64-unknown-linux-musl.tar.gz" aichat || true
+fi
+{{ end }}
