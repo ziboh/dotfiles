@@ -1,12 +1,12 @@
 {{ if eq .chezmoi.os "linux" -}}
 #!/bin/sh
 set -eu
-# v1 2026-10-12 install WSL tools (bump version to force re-run)
+# v2 2026-10-12 install WSL tools (bump version to force re-run)
 # apt: lazygit zoxide eza fzf bat
-# github: nu starship aichat
+# github: nu starship
 
 MISSING=0
-for t in nu lazygit starship zoxide fzf eza bat aichat; do
+for t in nu lazygit starship zoxide fzf eza bat; do
     command -v "$t" >/dev/null 2>&1 || MISSING=1
 done
 if [ "$MISSING" -eq 0 ]; then
@@ -54,9 +54,5 @@ fi
 if ! command -v starship >/dev/null 2>&1; then
     curl -fsSL https://starship.rs/install.sh |
         $SUDO sh -s -- --yes --bin-dir "$BIN" || true
-fi
-
-if ! command -v aichat >/dev/null 2>&1; then
-    install_from_github sigoden/aichat "x86_64-unknown-linux-musl.tar.gz" aichat || true
 fi
 {{ end }}
