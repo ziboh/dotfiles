@@ -1,0 +1,1 @@
+/mnt/c/Users/zibo/AppData/Roaming/nushell/config.nu

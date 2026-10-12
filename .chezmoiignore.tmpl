@@ -1,6 +1,12 @@
 {{ if ne .chezmoi.os "linux" }}
 .config/lazygit/config.yml
 {{ end }}
+{{ if eq .chezmoi.os "windows" }}
+.config/nushell
+{{ end }}
+{{ if and (eq .chezmoi.os "linux") (not (contains "microsoft" (.chezmoi.kernel.osrelease | lower))) }}
+.config/nushell
+{{ end }}
 {{ if ne .chezmoi.os "windows" }}
 AppData/
 Documents/Powershell
