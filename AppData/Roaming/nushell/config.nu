@@ -55,11 +55,40 @@ if (is-wsl) {
   $env.RIME_LS_SYNC_DIR = $env.HOME + "/rclone/rime_ls"
 }
 
+# 返回 WSL 内可用的 clash 代理地址:
+#   NAT 模式 → 默认网关(即 Windows 宿主机)
+#   其他模式(mirrored/consomme 等,localhost 直通 Windows)→ 127.0.0.1
+def get-proxy-host [] {
+  let mode = (do -i { wslinfo --networking-mode } | complete | get stdout | str trim)
+  if $mode == "nat" {
+    ip route | lines | where $it =~ '^default' | first | split row ' ' | get 2
+  } else {
+    "127.0.0.1"
+  }
+}
+
+# 从候选地址中探测可达的代理,都不可达则返回 null
+def pick-proxy [] {
+  let gw = (ip route | lines | where $it =~ '^default' | first | split row ' ' | get 2)
+  for h in ([(get-proxy-host) $gw] | uniq) {
+    let proxy = $"http://($h):7890"
+    if ((do -i { curl -s -o /dev/null --max-time 2 $proxy } | complete | get exit_code) == 0) {
+      return $proxy
+    }
+  }
+  null
+}
+
 def --env clash [] {
   if (is-wsl) {
     if (is-running-wsl clash-verge) {
-      $env.http_proxy = ("http://" + $env.WSL_ROUTER_IP + ":7890")
-      $env.https_proxy = ("http://" + $env.WSL_ROUTER_IP + ":7890")
+      let proxy = (pick-proxy)
+      if $proxy != null {
+        $env.http_proxy = $proxy
+        $env.https_proxy = $proxy
+      } else {
+        print $"(ansi yellow)clash: 代理不可达,未设置(ansi reset)"
+      }
     } else {
       unset-proxy
     }
