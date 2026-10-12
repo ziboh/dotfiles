@@ -1,0 +1,27 @@
+encryption = "age"
+
+[age]
+    identity = "~/.config/chezmoi/key.txt"
+    recipient = "age1yqpk9ye3y5magj7u3k4ytxflww5u0jh789squznv6g6fultrepkqf4fqr0"
+
+{{ if eq .chezmoi.os "windows" }}
+[keepassxc]
+    database = "d:/oneDrive/webdav/keepass/chezmoi.kdbx"
+    args = ["--no-password", "-k", "d:/oneDrive/webdav/keepass/PasswordDatebase.keyx"]
+    prompt = false
+
+[edit]
+    command = "nvim"
+
+[cd]
+    command = "nu"
+    args = ["-i"]
+{{ else if contains "microsoft" (.chezmoi.kernel.osrelease | lower) }}
+[keepassxc]
+    database = "/mnt/d/oneDrive/webdav/keepass/chezmoi.kdbx"
+    args = ["--no-password", "-k", "/mnt/d/oneDrive/webdav/keepass/PasswordDatebase.keyx"]
+    prompt = false
+
+[cd]
+    command = "bash"
+{{ end }}

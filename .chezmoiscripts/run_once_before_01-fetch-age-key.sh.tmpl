@@ -1,0 +1,11 @@
+{{ if eq .chezmoi.os "linux" }}
+#!/bin/sh
+set -e
+# WSL：从 Windows 侧复制 age 私钥（密钥本体不入仓库）
+KEY="$HOME/.config/chezmoi/key.txt"
+if [ ! -f "$KEY" ] && [ -f /mnt/c/Users/zibo/.config/chezmoi/key.txt ]; then
+    mkdir -p "$(dirname "$KEY")"
+    cp /mnt/c/Users/zibo/.config/chezmoi/key.txt "$KEY"
+    chmod 600 "$KEY"
+fi
+{{ end }}
